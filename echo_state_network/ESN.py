@@ -7,7 +7,7 @@ from utils.activation_functions import sigmoid_af
 from training_methods.pca_approach_1 import train as train_1
 from training_methods.pca_approach_2 import train as train_2
 from training_methods.pca_approach_3 import train as train_3
-from dimensionality_reduction_utils.PCA import pca_sklearn
+from dimensionality_reduction_utils.PCA import pca_sklearn, pca_numpy_R, pca_numpy_R_2
 
 import progressbar as pb
 import numpy as np
@@ -133,7 +133,7 @@ class ESN:
         """
         print '{0: <45}'.format('2/4. Initializing Echo State Network...'),
         sys.stdout.flush()
-        np.random.seed(50)
+        #np.random.seed(50)
         self.Kin = 1 # just for PCA#len(self.train_set[0][1])                                          # define number of input neurons
         self.Lout = max(self.train_set[1]) + 1                                         # define number of output neurons
         self.Vin = np.random.uniform(-self.alfa, self.alfa, (self.Kin, self.N))       # init weights for input neurons
@@ -185,7 +185,7 @@ class ESN:
         """
         self.clusters = list()                                                      # stores diff B for each l
         T = len(self.train_set[0][0])                                               # pixels in image
-        P = 500                                                                     # number of instances
+        P = 200                                                                     # number of instances
         data = self.__data_by_class(P)
         args = [
             [data[i], self.N, self.R, self.Washout, self.Vin, self.Wres] for i in xrange(self.Lout)
@@ -221,7 +221,7 @@ class ESN:
         self.clusters = list()                                                      # stores diff B for each l
         T = len(self.train_set[0][0])                                               # pixels in image
         I = np.identity(self.N)                                                     # identity matrix
-        P = 300                                                                     # number of instances
+        P = 30                                                                      # number of instances
 
         data = self.__data_by_class(P)
 
@@ -229,25 +229,24 @@ class ESN:
             print 'class: {0}'.format(k)
             X = np.zeros((T, self.N, self.N))
             for t in xrange(T):
-                print 't: {0}'.format(t)
+                print 't: {0}, class: {1}'.format(t, k)
                 reservoir_responses = np.zeros((self.N, P))                         # saves responses from reservoir
                 response = np.zeros(self.N)                                         # initial response from reservoir
                 for p, image in enumerate(data[k]):
                     for _ in xrange(self.Washout):
                         response = self.__harvest_state(image[t], response)         # reservoir response; N
                     reservoir_responses[:, p] = response
-                Uk, explained_ratio = pca_sklearn(reservoir_responses, self.R)      # N x R
-                print 'explained ration: {0}'.format(explained_ratio)
+                Uk, explained_ratio = pca_numpy_R_2(reservoir_responses, self.R, 0)   # N x R
+                #print 'Uk.shape: {0}'.format(Uk.shape)
                 reflection = I-Uk.dot(Uk.H)                                         # N x N
+                #if np.iscomplex(reflection.all()): print 'reflection is complex'
                 X[t] = reflection
             self.clusters.append(X)
 
     # TODO test
     def train_for_clustering_with_principal_components_approach2_paralel(self):
         self.clusters = list()                                                      # stores diff B for each l
-        T = len(self.train_set[0][0])                                               # pixels in image
-        I = np.identity(self.N)                                                     # identity matrix
-        P = 300                                                                     # number of instances
+        P = 30                                                                      # number of instances
 
         data = self.__data_by_class(P)
 
@@ -260,32 +259,33 @@ class ESN:
 
     # TODO test
     def classify_for_clustering_with_principal_components_approach2(self):
-        P = 100                                                                     # number of instances
-        T = len(self.valid_set[0][0])                                               # number of pixels
-        Y = np.zeros(P)                                                             # results of classification
+        instances = 100                                                                     # number of instances
+        T = len(self.valid_set[0][0])                                               # number of pixel
+        Y = np.zeros(instances)                                                             # results of classification
 
-        for i, image in enumerate(self.valid_set[0][:P]):
+        for i, image in enumerate(self.valid_set[0][:instances]):
             result = dict()
 
             for l in xrange(self.Lout):
                 response = np.zeros(self.N)
-                result = 0
+                res = 0
                 for t in xrange(T):
                     for _ in xrange(self.Washout):
                         response = self.__harvest_state(image[t], response)
-                    result += response.dot(self.clusters[l][t])
-                result[l] = response
+                    res += euclidean_norm(response.dot(self.clusters[l][t]))
+                result[l] = res
             Y[i] = min(result, key=result.get)
 
         count = sum(1 for i, y in enumerate(Y) if y == self.valid_set[1][i])
-        return accuracy(T, count)
+        print 'classify 2 count: {0}'.format(count)
+        return accuracy(instances, count)
 
     # TODO
     def train_for_clustering_with_principal_components_approach3(self):
         self.clusters = list()                                                      # stores (I - Uk*Uk.H) for each k
         T = len(self.train_set[0][0])                                               # pixels in image
         I = np.identity(self.N)                                                     # identity matrix
-        P = 300                                                                     # number of instances
+        P = 30                                                                      # number of instances
 
         data = self.__data_by_class(P)
 
@@ -299,15 +299,14 @@ class ESN:
                     for _ in xrange(self.Washout):
                         response = self.__harvest_state(image[t], response)
                     X[:, t + T*i] = response
-
-            Uk, explained_ratio = pca_sklearn(X, self.R)                            # N x R. Shit happens here with dimensions and exp ration
+            print 'X.shape: {0}'.format(X.shape)
+            Uk, explained_ratio = pca_numpy_R_2(X, self.R, 0)                            # N x R. Shit happens here with dimensions and exp ration
             reflection = I-Uk.dot(Uk.H)                                             # N x N
             self.clusters.append(reflection)
 
     def train_for_clustering_with_principal_components_approach3_paralel(self):
         self.clusters = list()                                                      # stores diff B for each l
-        T = len(self.train_set[0][0])                                               # pixels in image
-        P = 500                                                                     # number of instances
+        P = 30                                                                     # number of instances
 
         data = self.__data_by_class(P)
 
@@ -320,13 +319,13 @@ class ESN:
 
     # TODO
     def classify_for_clustering_with_principal_components_approach3(self):
-        P = 100                                                                     # number of instances
+        instances = 300                                                                     # number of instances
         T = len(self.valid_set[0][0])                                               # number of pixels
-        Y = np.zeros(P)                                                             # results of classification
+        Y = np.zeros(instances)                                                             # results of classification
 
-        for i, image in enumerate(self.valid_set[0][:P]):
+        for i, image in enumerate(self.valid_set[0][:instances]):
             result = dict()
-
+                                                                                                                                                                                                            
             for l in xrange(self.Lout):
                 X = np.zeros((self.N, T))                                           # input to classify
                 response = np.zeros(self.N)
@@ -338,4 +337,5 @@ class ESN:
 
             Y[i] = min(result, key=result.get)
         count = sum(1 for i, y in enumerate(Y) if y == self.valid_set[1][i])
-        return accuracy(T, count)
+        print 'approach 3 count: {0}'.format(count)
+        return accuracy(instances, count)

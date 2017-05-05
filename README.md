@@ -1,2 +1,0 @@
-# ESN
-# Echo-State-Network

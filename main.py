@@ -74,6 +74,7 @@ def run_esn_regularized_least_squares(options):
 
 
 def run_esn_clustering_with_principal_components_approach_1(options):
+    print 'approach 1'
     network = ESN(options.filename, options.neurons, options.alfa, options.sparsity, options.principal_components, options.washout)
     network.load_dataset()
     network.initialize()
@@ -83,6 +84,7 @@ def run_esn_clustering_with_principal_components_approach_1(options):
 
 
 def run_esn_clustering_with_principal_components_approach_2(options):
+    print 'approach 2'
     network = ESN(options.filename, options.neurons, options.alfa, options.sparsity, options.principal_components, options.washout)
     network.load_dataset()
     network.initialize()
@@ -92,17 +94,18 @@ def run_esn_clustering_with_principal_components_approach_2(options):
 
 
 def run_esn_clustering_with_principal_components_approach_3(options):
+    print 'approach 3'
     network = ESN(options.filename, options.neurons, options.alfa, options.sparsity, options.principal_components, options.washout)
     network.load_dataset()
     network.initialize()
-    network.train_for_clustering_with_principal_components_approach3_paralel()
+    network.train_for_clustering_with_principal_components_approach3()#_paralel()
     accuracy = network.classify_for_clustering_with_principal_components_approach3()
     return accuracy
 
 
 options = parse_options()
 #accuracy = run_esn_regularized_least_squares(options)
-#accuracy = run_esn_clustering_with_principal_components_approach_1(options)
-accuracy = run_esn_clustering_with_principal_components_approach_2(options)
+accuracy = run_esn_clustering_with_principal_components_approach_1(options)
+#accuracy = run_esn_clustering_with_principal_components_approach_2(options)
 #accuracy = run_esn_clustering_with_principal_components_approach_3(options)
 print '\033[92mAccuracy: {0} \033[0m'.format(accuracy)

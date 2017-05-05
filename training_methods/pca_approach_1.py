@@ -2,7 +2,7 @@ from __future__ import division
 
 
 from utils.activation_functions import sigmoid_af
-from dimensionality_reduction_utils.PCA import pca_sklearn, pca_numpy
+from dimensionality_reduction_utils.PCA import pca_sklearn, pca_numpy, pca_numpy_R_2
 from utils.norms import euclidean_norm
 
 import numpy as np
@@ -30,7 +30,7 @@ def train(args):
                 b[t] = euclidean_norm(response)
         B[:, p] = b
 
-        Uk, _ = pca_sklearn(B, R)  # T x R
+        Uk, _ = pca_numpy_R_2(B, R, 0)  # T x R
         reflection = I-Uk.dot(Uk.H)  # T x T
         return reflection  # T x T
 

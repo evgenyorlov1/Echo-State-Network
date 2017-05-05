@@ -2,7 +2,7 @@ from __future__ import division
 
 
 from utils.activation_functions import sigmoid_af
-from dimensionality_reduction_utils.PCA import pca_sklearn, pca_numpy, pca_numpy_R
+from dimensionality_reduction_utils.PCA import pca_sklearn, pca_numpy, pca_numpy_R, pca_numpy_R_2
 
 import numpy as np
 
@@ -27,7 +27,7 @@ def train(args):
                 response = __harvest_state(image[t], response, Vin, Wres)
             X[:, t + T*i] = response
 
-    Uk, explained_ratio = pca_numpy_R(X, R, 1)                                      # N x R. Shit happens here with dimensions and exp ration
+    Uk, explained_ratio = pca_numpy_R_2(X, R, 0)                                    # N x R. Shit happens here with dimensions and exp ration
     reflection = I-Uk.dot(Uk.H)
     return reflection
 

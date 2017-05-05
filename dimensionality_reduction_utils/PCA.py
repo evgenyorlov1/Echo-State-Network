@@ -1,8 +1,16 @@
 from __future__ import division
 
-
+import sys
 from sklearn.decomposition import PCA
 import numpy as np
+import time
+
+
+def __sortt(e, ev):
+    indices = np.argsort(e)[::-1]
+    e = e[indices]
+    ev = ev[:, indices]
+    return e, ev
 
 
 def pca_sklearn(B, R):
@@ -54,27 +62,43 @@ def pca_numpy_R(B, R, rowvar):
     """
     mean_value = np.mean(B, axis=0)
     A = B - mean_value
-#    print 'normalized'
     C = np.cov(A, rowvar=rowvar)
-#    print 'covariance shape: {0}'.format(C.shape)
-    e, ev = np.linalg.eig(C)                                                        # first e are important
-#    print 'eigen values shape: {0}'.format(ev.shape)
+    #C = (C + C.T)/2
+    e, ev = np.linalg.eigh(C)
+    e, ev = __sortt(e, ev)
+    #print 'minimum eigenvalu: {0}'.format(min(e))
     e = [i/sum(e) for i in e]
+    #print 'e: {0}'.format(e)
     explained_variance_ratio = 0
-#    print 'shape e length: {0}'.format(e.__len__())
     new_feature = ev.T
 #    print 'new_feature shape: {0}'.format(new_feature.shape)
     XTrans = (new_feature.dot(A))
     XTrans = np.matrix(XTrans)
-#    print 'R: {0}'.format(R)
+    return XTrans[:, :], explained_variance_ratio
+
+def pca_numpy_R_2(B, R, rowvar):
+    """
+    Principal Component Analysis via numpy.
+    :param B: input matrix for dimension reduction.
+    :param R: first R principal components.
+    :param rowvar: If rowvar is 1, then each row represents a variable, with observations in the columns.
+    :return: matrix with first n principal components, explained variance ratio.
+    """
+    mean_value = np.mean(B, axis=0)
+    #if q == 400:
+    #    print 'savetxt'
+    #    np.savetxt('B400.csv', B)
+    A = B - mean_value
+    #print 'B shape: {0}'.format(B.shape)
+    C = np.cov(A, rowvar=rowvar)
+    #print 'C shape: {0}'.format(C.shape)
+    e, ev = np.linalg.eigh(C)
+    e, ev = __sortt(e, ev)
+    e = [i / sum(e) for i in e]
+    explained_variance_ratio = sum((e[i]) for i in xrange(R))
+
+    new_feature = ev.T
+    XTrans = (new_feature.dot(A.T))
+    XTrans = np.matrix(XTrans).T
+    #print 'XTrans shape: {0}'.format(XTrans.shape)
     return XTrans[:, :R], explained_variance_ratio
-
-
-#B = np.random.rand(100, 350500)
-#print 'step 1'
-#A, _ = pca_numpy_R(B, 300, 1)
-#print 'A shape: {0}\n'.format(A.shape)
-
-#C, _ = pca_sklearn(B, 300)
-#print 'C shape: {0}'.format(C.shape)
-
