@@ -105,7 +105,7 @@ def run_esn_clustering_with_principal_components_approach_3(options):
 
 options = parse_options()
 #accuracy = run_esn_regularized_least_squares(options)
-accuracy = run_esn_clustering_with_principal_components_approach_1(options)
-#accuracy = run_esn_clustering_with_principal_components_approach_2(options)
+#accuracy = run_esn_clustering_with_principal_components_approach_1(options)
+accuracy = run_esn_clustering_with_principal_components_approach_2(options)
 #accuracy = run_esn_clustering_with_principal_components_approach_3(options)
 print '\033[92mAccuracy: {0} \033[0m'.format(accuracy)

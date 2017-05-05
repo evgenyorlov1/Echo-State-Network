@@ -5,7 +5,7 @@ from accuracy_measures.accuracy import accuracy
 from utils.norms import euclidean_norm
 from utils.activation_functions import sigmoid_af
 from training_methods.pca_approach_1 import train as train_1
-from training_methods.pca_approach_2 import __train as train_2, classify as classify_2, train_in_parallel as train_in_parallel_2
+from training_methods.pca_approach_2 import train as train_2
 from training_methods.pca_approach_3 import train as train_3
 from dimensionality_reduction_utils.PCA import pca_sklearn, pca_numpy_R, pca_numpy_R_2
 
@@ -247,20 +247,36 @@ class ESN:
     def train_for_clustering_with_principal_components_approach2_paralel(self):
         self.clusters = list()                                                      # stores diff B for each l
         P = 30                                                                      # number of instances
+
         data = self.__data_by_class(P)
-        self.clusters = train_in_parallel_2(data,
-                                            self.N,
-                                            self.R,
-                                            self.Lout,
-                                            self.Washout,
-                                            self.Vin,
-                                            self.Wres)
+
+        args = [
+            [data[i], self.N, self.R, self.Washout, self.Vin, self.Wres] for i in xrange(self.Lout)
+        ]
+        pool = Pool(processes=self.Lout)
+        self.clusters = pool.map(train_2, args)
         print 'Finish!'
 
     # TODO test
     def classify_for_clustering_with_principal_components_approach2(self):
         instances = 100                                                                     # number of instances
-        count = classify_2(self.valid_set, self.clusters, self.N, self.Lout, instances, self.Washout, self.Vin, self.Wres)
+        T = len(self.valid_set[0][0])                                               # number of pixel
+        Y = np.zeros(instances)                                                             # results of classification
+
+        for i, image in enumerate(self.valid_set[0][:instances]):
+            result = dict()
+
+            for l in xrange(self.Lout):
+                response = np.zeros(self.N)
+                res = 0
+                for t in xrange(T):
+                    for _ in xrange(self.Washout):
+                        response = self.__harvest_state(image[t], response)
+                    res += euclidean_norm(response.dot(self.clusters[l][t]))
+                result[l] = res
+            Y[i] = min(result, key=result.get)
+
+        count = sum(1 for i, y in enumerate(Y) if y == self.valid_set[1][i])
         print 'classify 2 count: {0}'.format(count)
         return accuracy(instances, count)
 
