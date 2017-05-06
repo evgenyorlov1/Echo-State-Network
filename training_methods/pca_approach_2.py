@@ -95,7 +95,7 @@ def classify(test_set, clusters, N, Lout, instances, Washout, Vin, Wres):
     return count
 
 
-def train_straight(train_set, N, R, Lout, Washout, Vin, Wres):
+def train_straight(train_set, N, R, P, Lout, Washout, Vin, Wres):
     clusters = list()
     T = len(train_set[0][0])  # pixels in image
     I = np.identity(N)
@@ -104,7 +104,7 @@ def train_straight(train_set, N, R, Lout, Washout, Vin, Wres):
         for t in xrange(T):
             reservoir_responses = np.zeros((N, P))  # saves responses from reservoir
             response = np.zeros(N)  # initial response from reservoir
-            for p, image in enumerate(data[k]):
+            for p, image in enumerate(train_set[k]):
                 for _ in xrange(Washout):
                     response = __harvest_state(image[t], response, Vin, Wres)  # reservoir response; N
                 reservoir_responses[:, p] = response

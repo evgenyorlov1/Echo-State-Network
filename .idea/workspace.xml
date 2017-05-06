@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01faf250-d014-4845-a4ec-1ec4ef7a3dc8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/echo_state_network/utils/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/echo_state_network/utils/activation_functions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/echo_state_network/ESN.py" afterPath="$PROJECT_DIR$/echo_state_network/ESN.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/training_methods/pca_approach_2.py" afterPath="$PROJECT_DIR$/training_methods/pca_approach_2.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,9 +13,9 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.6986525">
+    <splitter split-orientation="horizontal" split-proportion="0.7896425">
       <split-first>
-        <splitter split-orientation="horizontal" split-proportion="0.5423152">
+        <splitter split-orientation="horizontal" split-proportion="0.22706155">
           <split-first>
             <leaf>
               <file leaf-file-name="PCA.py" pinned="false" current-in-tab="false">
@@ -39,8 +34,8 @@
               <file leaf-file-name="ESN.py" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/echo_state_network/ESN.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="240">
-                      <caret line="222" column="32" lean-forward="false" selection-start-line="221" selection-start-column="8" selection-end-line="222" selection-end-column="32" />
+                    <state relative-caret-position="127">
+                      <caret line="221" column="30" lean-forward="false" selection-start-line="221" selection-start-column="21" selection-end-line="221" selection-end-column="30" />
                       <folding>
                         <element signature="e#0#31#0" expanded="true" />
                         <element signature="e#641#1705#1" expanded="false" />
@@ -49,7 +44,6 @@
                         <element signature="e#3467#3757#0" expanded="false" />
                         <element signature="e#3794#4029#0" expanded="false" />
                         <element signature="e#4073#4725#0" expanded="false" />
-                        <element signature="e#4884#5563#0" expanded="false" />
                         <element signature="e#5644#6683#0" expanded="false" />
                         <element signature="e#6788#7564#0" expanded="false" />
                         <element signature="e#7673#8481#0" expanded="false" />
@@ -72,10 +66,11 @@
               <file leaf-file-name="pca_approach_2.py" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/training_methods/pca_approach_2.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="527">
-                      <caret line="115" column="19" lean-forward="false" selection-start-line="115" selection-start-column="19" selection-end-line="115" selection-end-column="19" />
+                    <state relative-caret-position="649">
+                      <caret line="111" column="52" lean-forward="true" selection-start-line="111" selection-start-column="52" selection-end-line="111" selection-end-column="52" />
                       <folding>
                         <element signature="e#0#31#0" expanded="true" />
+                        <element signature="e#4333#4887#0" expanded="false" />
                       </folding>
                     </state>
                   </provider>
@@ -114,7 +109,7 @@
           <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="941">
+                <state relative-caret-position="1373">
                   <caret line="108" column="0" lean-forward="false" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
                   <folding />
                 </state>
@@ -144,6 +139,8 @@
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/echo_state_network/ESN.py" />
         <option value="$PROJECT_DIR$/training_methods/pca_approach_2.py" />
+        <option value="$PROJECT_DIR$/echo_state_network/loaders/mnist_loader.py" />
+        <option value="$PROJECT_DIR$/echo_state_network/loaders/ecg_loader.py" />
       </list>
     </option>
   </component>
@@ -274,6 +271,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Echo-State-Network" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Echo-State-Network" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="echo_state_network" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="loaders" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -460,7 +475,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="941">
+        <state relative-caret-position="1373">
           <caret line="108" column="0" lean-forward="false" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
           <folding />
         </state>
@@ -517,33 +532,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/echo_state_network/ESN.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="222" column="32" lean-forward="false" selection-start-line="221" selection-start-column="8" selection-end-line="222" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-            <element signature="e#641#1705#1" expanded="false" />
-            <element signature="e#1776#2364#0" expanded="false" />
-            <element signature="e#2453#3376#0" expanded="false" />
-            <element signature="e#3467#3757#0" expanded="false" />
-            <element signature="e#3794#4029#0" expanded="false" />
-            <element signature="e#4073#4725#0" expanded="false" />
-            <element signature="e#4884#5563#0" expanded="false" />
-            <element signature="e#5644#6683#0" expanded="false" />
-            <element signature="e#6788#7564#0" expanded="false" />
-            <element signature="e#7673#8481#0" expanded="false" />
-            <element signature="e#8607#9281#0" expanded="false" />
-            <element signature="e#9366#10399#0" expanded="false" />
-            <element signature="e#12164#12811#0" expanded="false" />
-            <element signature="e#12912#13234#0" expanded="false" />
-            <element signature="e#13327#14676#0" expanded="false" />
-            <element signature="e#14766#15254#0" expanded="false" />
-            <element signature="e#15350#16655#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/training_methods/harvesting_methods/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -554,10 +542,53 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/training_methods/pca_approach_2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="115" column="19" lean-forward="false" selection-start-line="115" selection-start-column="19" selection-end-line="115" selection-end-column="19" />
+        <state relative-caret-position="649">
+          <caret line="111" column="52" lean-forward="true" selection-start-line="111" selection-start-column="52" selection-end-line="111" selection-end-column="52" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#4333#4887#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/echo_state_network/loaders/mnist_loader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/echo_state_network/loaders/ecg_loader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/echo_state_network/ESN.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="221" column="30" lean-forward="false" selection-start-line="221" selection-start-column="21" selection-end-line="221" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#641#1705#1" expanded="false" />
+            <element signature="e#1776#2364#0" expanded="false" />
+            <element signature="e#2453#3376#0" expanded="false" />
+            <element signature="e#3467#3757#0" expanded="false" />
+            <element signature="e#3794#4029#0" expanded="false" />
+            <element signature="e#4073#4725#0" expanded="false" />
+            <element signature="e#5644#6683#0" expanded="false" />
+            <element signature="e#6788#7564#0" expanded="false" />
+            <element signature="e#7673#8481#0" expanded="false" />
+            <element signature="e#8607#9281#0" expanded="false" />
+            <element signature="e#9366#10399#0" expanded="false" />
+            <element signature="e#12164#12811#0" expanded="false" />
+            <element signature="e#12912#13234#0" expanded="false" />
+            <element signature="e#13327#14676#0" expanded="false" />
+            <element signature="e#14766#15254#0" expanded="false" />
+            <element signature="e#15350#16655#0" expanded="false" />
           </folding>
         </state>
       </provider>
