@@ -5,15 +5,19 @@ from accuracy_measures.accuracy import accuracy
 from utils.norms import euclidean_norm
 from utils.activation_functions import sigmoid_af
 from training_methods.pca_approach_1 import train as train_1
-from training_methods.pca_approach_2 import __train as train_2, classify as classify_2, train_in_parallel as train_in_parallel_2
+from training_methods.pca_approach_2 import __train as train_2, \
+    classify as classify_2, \
+    train_in_parallel as train_in_parallel_2, \
+    train_straight as train_straight_2
 from training_methods.pca_approach_3 import train as train_3
-from dimensionality_reduction_utils.PCA import pca_sklearn, pca_numpy_R, pca_numpy_R_2
+from dimensionality_reduction_utils.PCA import pca_numpy
 
 import progressbar as pb
 import numpy as np
 import gzip
 import cPickle
 import sys
+import os
 
 
 class ESN:
@@ -60,22 +64,22 @@ class ESN:
         self.R         =    R
 
     # ADD feedback from output
-    def __harvest_states(self, data, T, label):
+    def __harvest_states(self, data, P, label):
         """
         Harvest reservoir states for input data.
         """
-        X = np.zeros((T+1, self.N))                                                 # reservoir node's states per input
+        X = np.zeros((P + 1, self.N))                                                 # reservoir node's states per input
         label = '{0: <13}'.format(label)
         # Harvest reservoir states
-        bar = pb.ProgressBar(maxval=T, widgets=[label, pb.Bar('=', '[', ']'), ' ', pb.Percentage()]).start()
-        for i in xrange(1, T):
+        bar = pb.ProgressBar(maxval=P, widgets=[label, pb.Bar('=', '[', ']'), ' ', pb.Percentage()]).start()
+        for i in xrange(1, P):
             for j in xrange(self.N):
                 input_activation = data[0][i-1].dot(self.Vin[:, j])                 # activation from input
                 recurrent_activation = X[i-1].dot(self.Wres[:, j])                  # activation from neurons
                 X[i][j] = sigmoid_af(input_activation + recurrent_activation)
             bar.update(i)
         bar.finish()
-        X = np.delete(X, 0, axis=0)                                                 # delete zero state initial vector; T x N
+        X = np.delete(X, 0, axis=0)                                                 # delete zero state initial vector; P x N
         return X
 
     # ADD feedback from output
@@ -94,7 +98,7 @@ class ESN:
 
     def __data_by_class(self, P):
         """
-        Principal Component Analysis via numpy.
+        Returns data separated by class. Only train data without class label. 
         :param P: number of train instances to select
         :return: list with train inputs by class
         """
@@ -108,10 +112,6 @@ class ESN:
             data.append(images)
         return data
 
-    # TODO must be out
-    # TODO switch to numpy
-    # TODO add % of loss; done return it
-    # data getter must be out
     def load_dataset(self):
         """
         Loads MNIST.
@@ -133,8 +133,9 @@ class ESN:
         """
         print '{0: <45}'.format('2/4. Initializing Echo State Network...'),
         sys.stdout.flush()
-        #np.random.seed(50)
-        self.Kin = 1 # just for PCA#len(self.train_set[0][1])                                          # define number of input neurons
+        # TODO fix seeds for testing
+        np.random.seed(None)
+        self.Kin = 1#len(self.train_set[0][1])                                          # define number of input neurons;  1 # just for PCA#
         self.Lout = max(self.train_set[1]) + 1                                         # define number of output neurons
         self.Vin = np.random.uniform(-self.alfa, self.alfa, (self.Kin, self.N))       # init weights for input neurons
         self.Wres = np.random.uniform(-self.alfa, self.alfa, (self.N, self.N))      # init weights for reservoir neurons
@@ -145,38 +146,36 @@ class ESN:
         self.__c_indices()
         print '{0: <45}'.format('OK')
 
-    # TODO switch to regularized regression
     def train_for_regularized_least_squares(self):
         """
         Trains ESN on dataset. Calculates U via least square linear regression.
         """
-        T = len(self.train_set[0])                                                  # number of training elements
-        X = self.__harvest_states(self.train_set, T, '3/4. Training:')              # reservoir states
+        P = len(self.train_set[0])                                                  # number of training elements
+        X = self.__harvest_states(self.train_set, P, '3/4. Training:')              # reservoir states
         # Generate target vector
-        y_target = np.zeros((T, self.Lout))                                            # target output
-        for i in xrange(T):
+        y_target = np.zeros((P, self.Lout))                                         # target output
+        for i in xrange(P):
             y_target[i][self.train_set[1][i]] = 1
         print '{0: <45}'.format('Calculation output matrix...'),
         sys.stdout.flush()
         self.Uout, _, _, _ = np.linalg.lstsq(X, y_target)                           # calculate U via linear regression
         print '{0: <45}'.format('OK')
 
-    # TESTED just for readout classification
     def classify_for_regularized_least_squares(self):
         """
         Classifies input information via output nodes training with least squares regression.
         """
-        T = len(self.valid_set[0])                                                  # number of training elements
-        self.X = self.__harvest_states(self.valid_set, T, '4/4. Classifying:')      # reservoir states
+        P = len(self.valid_set[0])                                                  # number of training elements
+        self.X = self.__harvest_states(self.valid_set, P, '4/4. Classifying:')      # reservoir states
         print '{0: <45}'.format('4/4. Classifying ESN...'),
         sys.stdout.flush()
-        Y = self.X.dot(self.Uout)                                                   # NN output
-        count = sum(1 for i in xrange(T) if Y[i][self.valid_set[1][i]] == max(Y[i]))
+        Y = self.X.dot(self.Uout)                                                   # NN output; P x Lout
+        count = sum(1 for i in xrange(P) if Y[i][self.valid_set[1][i]] == max(Y[i]))
         print '{0: <45}'.format('OK')
         print '{0: <45}'.format('4/4. Classification accuracy measures...'),
         sys.stdout.flush()
         print '{0: <45}'.format('OK')
-        return accuracy(T, count)
+        return accuracy(P, count)
 
     # TODO REFACTOR B; possible input for U
     def train_for_clustering_with_principal_components_approach1(self):
@@ -184,7 +183,6 @@ class ESN:
         Trains ESN on dataset. input information via output nodes training with PCA.
         """
         self.clusters = list()                                                      # stores diff B for each l
-        T = len(self.train_set[0][0])                                               # pixels in image
         P = 200                                                                     # number of instances
         data = self.__data_by_class(P)
         args = [
@@ -218,30 +216,12 @@ class ESN:
 
     # TODO test
     def train_for_clustering_with_principal_components_approach2(self):
-        self.clusters = list()                                                      # stores diff B for each l
-        T = len(self.train_set[0][0])                                               # pixels in image
-        I = np.identity(self.N)                                                     # identity matrix
-        P = 30                                                                      # number of instances
+        self.clusters = list()                                                      # stores diff B for each l                                                     # identity matrix
+        P = 600                                                                      # number of instances
 
         data = self.__data_by_class(P)
 
-        for k in xrange(self.Lout):
-            print 'class: {0}'.format(k)
-            X = np.zeros((T, self.N, self.N))
-            for t in xrange(T):
-                print 't: {0}, class: {1}'.format(t, k)
-                reservoir_responses = np.zeros((self.N, P))                         # saves responses from reservoir
-                response = np.zeros(self.N)                                         # initial response from reservoir
-                for p, image in enumerate(data[k]):
-                    for _ in xrange(self.Washout):
-                        response = self.__harvest_state(image[t], response)         # reservoir response; N
-                    reservoir_responses[:, p] = response
-                Uk, explained_ratio = pca_numpy_R_2(reservoir_responses, self.R, 0)   # N x R
-                #print 'Uk.shape: {0}'.format(Uk.shape)
-                reflection = I-Uk.dot(Uk.H)                                         # N x N
-                #if np.iscomplex(reflection.all()): print 'reflection is complex'
-                X[t] = reflection
-            self.clusters.append(X)
+        self.clusters = train_straight_2(data, self.N, self.R, P, self.Lout, self.Washout, self.Vin, self.Wres)
 
     # TODO test
     def train_for_clustering_with_principal_components_approach2_paralel(self):
@@ -284,7 +264,7 @@ class ESN:
                         response = self.__harvest_state(image[t], response)
                     X[:, t + T*i] = response
             print 'X.shape: {0}'.format(X.shape)
-            Uk, explained_ratio = pca_numpy_R_2(X, self.R, 0)                            # N x R. Shit happens here with dimensions and exp ration
+            Uk, explained_ratio = pca_numpy(X, self.R, 0)                            # N x R. Shit happens here with dimensions and exp ration
             reflection = I-Uk.dot(Uk.H)                                             # N x N
             self.clusters.append(reflection)
 
