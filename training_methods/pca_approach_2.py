@@ -3,7 +3,7 @@ from __future__ import division
 from multiprocessing import Pool
 
 from utils.activation_functions import sigmoid_af
-from dimensionality_reduction_utils.PCA import pca_sklearn, pca_numpy, pca_numpy_R, pca_numpy_R_2
+from dimensionality_reduction_utils.PCA import pca_numpy
 
 import numpy as np
 
@@ -23,22 +23,27 @@ def __train(args):
     Vin = args[4]
     Wres = args[5]
 
-    T = len(images[0])  # pixels in image
-    P = len(images)     # number of instances
+    T = len(images[0])                                                              # pixels in image
+    P = len(images)                                                                 # number of instances
     I = np.identity(N)
 
     X = np.zeros((T, N, N))
+
     for t in xrange(T):
         reservoir_responses = np.zeros((N, P))                                      # saves responses from reservoir
-        response = np.zeros(N)                                                      # initial response from reservoir
         for p, image in enumerate(images):
+            response = np.zeros(N)  # initial response from reservoir
             for _ in xrange(Washout):
-                response = __harvest_state(image[t], response, Vin, Wres)           # reservoir response; N
+                response = harvest_state(image[t], response, Vin, Wres)           # reservoir response; N
             reservoir_responses[:, p] = response
-
-        Uk, explained_ratio = pca_numpy_R_2(reservoir_responses, R, 0)                # N x R
-        reflection = I-Uk.dot(Uk.H)                                                 # N x N
+        Uk, explained_ratio = pca_numpy(reservoir_responses, R, 0)                  # N x R
+        assert Uk.shape == (N, R), 'Uk wrong shape'
+        U = Uk.dot(Uk.H)
+        assert U.shape == (N, N), 'wrong shape'
+        reflection = I-Uk.dot(Uk.H)
+        assert reflection.shape == (N, N), 'reflection wrong'
         X[t] = reflection
+        assert X[0].shape == (N, N), 'Wrong X sahpe'
     return X
 
 
@@ -58,7 +63,9 @@ def train_in_parallel(data, N, R, Lout, Washout, Vin, Wres):
         [data[i], N, R, Washout, Vin, Wres] for i in xrange(Lout)
     ]
     pool = Pool(processes=Lout)
+    # TODO check clusters order. Can be unordered
     clusters = pool.map(__train, args)
+    assert clusters.__len__() == Lout, 'Wrong cluster size'
     return clusters
 
 
@@ -75,6 +82,7 @@ def classify(test_set, clusters, N, Lout, instances, Washout, Vin, Wres):
     :param Wres: matrix of reservoir weights.
     :return: number of correct answers.
     """
+    print 'Classify'
     T = len(test_set[0][0])  # number of pixel
     Y = np.zeros(instances)  # results of classification
 
@@ -82,15 +90,17 @@ def classify(test_set, clusters, N, Lout, instances, Washout, Vin, Wres):
         result = dict()
 
         for l in xrange(Lout):
-            response = np.zeros(N)
             res = 0
             for t in xrange(T):
+                # move response initialization here
+                response = np.zeros(N)
                 for _ in xrange(Washout):
-                    response = __harvest_state(image[t], response, Vin, Wres)
+                    # TODO check response after washout. ?clear response before washout
+                    response = harvest_state(image[t], response, Vin, Wres)
                 res += euclidean_norm(response.dot(clusters[l][t]))
             result[l] = res
         Y[i] = min(result, key=result.get)
-
+    # TODO check count function
     count = sum(1 for i, y in enumerate(Y) if y == test_set[1][i])
     return count
 
@@ -98,26 +108,37 @@ def classify(test_set, clusters, N, Lout, instances, Washout, Vin, Wres):
 def train_straight(train_set, N, R, P, Lout, Washout, Vin, Wres):
     clusters = list()
     T = len(train_set[0][0])  # pixels in image
+    assert T == 784, "WRONG T.length"
     I = np.identity(N)
     for k in xrange(Lout):
         X = np.zeros((T, N, N))
+
+        # TODO delete
+#        Uk_temp = np.zeros((T, N))
+
         for t in xrange(T):
             reservoir_responses = np.zeros((N, P))  # saves responses from reservoir
-            response = np.zeros(N)  # initial response from reservoir
             for p, image in enumerate(train_set[k]):
+                response = np.zeros(N)  # initial response from reservoir
                 for _ in xrange(Washout):
-                    response = __harvest_state(image[t], response, Vin, Wres)  # reservoir response; N
+                    print image[t]
+                    response = harvest_state(image[t], response, Vin, Wres)  # reservoir response; N
                 reservoir_responses[:, p] = response
-            Uk, explained_ratio = pca_numpy_R_2(reservoir_responses, R, 0)  # N x R
-            # print 'Uk.shape: {0}'.format(Uk.shape)
+            Uk, explained_ratio = pca_numpy(reservoir_responses, R, 0)  # N x R
+            # TODO delete
+#            Uk_temp[t] = Uk.T
             reflection = I - Uk.dot(Uk.H)  # N x N
-            # if np.iscomplex(reflection.all()): print 'reflection is complex'
+            assert I.shape == (N, N), 'Wrong reflection shape'
             X[t] = reflection
-        clusters.append(X)
+        assert X[0].shape == (N, N), 'Wrong X sahpe'
+        clusters.append(X)         # can be mistake here
+        assert clusters.__len__() == Lout, 'Wrong cluster size'
+        # TODO delete
+        #np.savetxt('Uk{0}'.format(k), Uk_temp)
     return clusters
 
 
-def __harvest_state(u, previous_state, Vin, Wres):
+def harvest_state(u, previous_state, Vin, Wres):
     """
     Get reservoir response for a signal.
     :param u: input signal.
@@ -126,7 +147,7 @@ def __harvest_state(u, previous_state, Vin, Wres):
     :param Wres: matrix of reservoir weights.
     :return: reservoir response.
     """
-    input_activation = Vin.dot(u)                                                   # activation from input
+    input_activation = Vin.dot(u)
     recurrent_activation = previous_state.dot(Wres)                                 # activation from neurons
     X = sigmoid_af(input_activation + recurrent_activation)
     return X
