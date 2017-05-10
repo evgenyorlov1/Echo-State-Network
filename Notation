@@ -1,0 +1,5 @@
+T - signal length
+P - number of instances
+X - reservoir states
+train_set - set for training
+classify_set - set for classifying

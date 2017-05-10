@@ -5,41 +5,46 @@ from sklearn.decomposition import PCA
 import numpy as np
 
 
-def __sort_eighenvalues(e, ev):
-    indices = np.argsort(e)[::-1]
+def sort_eigenvalues(e, ev):
+    """
+    Sorts eighen vectors and values in a descending order (biggest first).
+    :param e: eighen values
+    :param ev: eighen vectors
+    :return: eighen values, eighen vectors
+    """
+    indices = np.argsort(e)[::-1]                                                   # a[start:stop:step]
     e = e[indices]
     ev = ev[:, indices]
     return e, ev
 
 
-def pca_sklearn(B, R):
+def pca_sklearn(X, R):
     """
-    Performs Principal Component Analysis.
-    :param B: input matrix for dimension reduction
-    :param accuracy: PCA accuracy, explained variance ratio
-    :return: matrix with first n principal components, explained variance ratio. Reduce second dimension.
-    """
-    pca = PCA(n_components=R)
-    pca.fit(B)
-    B = pca.transform(B)
-    B = np.matrix(B)
-    explained_variance_ratio = sum(pca.explained_variance_ratio_)               # explained varience ration after PCA
-    return B, explained_variance_ratio
-
-
-def pca_numpy_R_2(B, R, rowvar):
-    """
-    Principal Component Analysis via numpy.
-    :param B: input matrix for dimension reduction.
-    :param R: first R principal components.
-    :param rowvar: If rowvar is 1, then each row represents a variable, with observations in the columns.
+    Performs Principal Component Analysis. Reduce second dimension.
+    :param X: input matrix for dimension reduction
+    :param R: first R principal components
     :return: matrix with first n principal components, explained variance ratio.
     """
-    mean_value = np.mean(B, axis=0)
-    A = B - mean_value
+    pca = PCA(n_components=R)
+    pca.fit(X)
+    X = pca.transform(X)
+    explained_variance_ratio = sum(pca.explained_variance_ratio_)                   # explained varience ration after PCA
+    return X, explained_variance_ratio
+
+
+def pca_numpy(X, R, rowvar):
+    """
+    Principal Component Analysis via numpy.
+    :param X: input matrix for dimension reduction
+    :param R: first R principal components
+    :param rowvar: If rowvar is 1, then each row represents a variable, with observations in the columns
+    :return: matrix with first n principal components (N x R), explained variance ratio
+    """
+    mean_value = np.mean(X, axis=rowvar)
+    A = X - mean_value
     C = np.cov(A, rowvar=rowvar)
     e, ev = np.linalg.eigh(C)
-    e, ev = __sort_eighenvalues(e, ev)
+    e, ev = sort_eigenvalues(e, ev)
     e = [i / sum(e) for i in e]
     explained_variance_ratio = sum((e[i]) for i in xrange(R))
 
@@ -47,3 +52,6 @@ def pca_numpy_R_2(B, R, rowvar):
     XTrans = (new_feature.dot(A.T))
     XTrans = np.matrix(XTrans).T
     return XTrans[:, :R], explained_variance_ratio
+
+
+

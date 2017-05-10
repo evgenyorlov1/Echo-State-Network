@@ -8,9 +8,6 @@ import argparse
 from echo_state_network.ESN import ESN
 
 
-#from echo_state_network.ESN import ESN
-
-
 def parse_options():
     optparser = argparse.ArgumentParser(description='Echo State Network.')
     optparser.add_argument(
@@ -61,10 +58,18 @@ def parse_options():
         default=4,
         type=int
     )
+    optparser.add_argument(
+        '-m', '--method',
+        dest='method',
+        help='training method',
+        default=None,
+        type=str
+    )
     return optparser.parse_args()
 
 
 def run_esn_regularized_least_squares(options):
+    print 'Regularized least squares approach'
     network = ESN(options.filename, options.neurons, options.alfa, options.sparsity, options.principal_components, options.washout)
     network.load_dataset()
     network.initialize()
@@ -74,7 +79,7 @@ def run_esn_regularized_least_squares(options):
 
 
 def run_esn_clustering_with_principal_components_approach_1(options):
-    print 'approach 1'
+    print 'PCA approach 1'
     network = ESN(options.filename, options.neurons, options.alfa, options.sparsity, options.principal_components, options.washout)
     network.load_dataset()
     network.initialize()
@@ -84,7 +89,7 @@ def run_esn_clustering_with_principal_components_approach_1(options):
 
 
 def run_esn_clustering_with_principal_components_approach_2(options):
-    print 'approach 2'
+    print 'PCA approach 2'
     network = ESN(options.filename, options.neurons, options.alfa, options.sparsity, options.principal_components, options.washout)
     network.load_dataset()
     network.initialize()
@@ -94,7 +99,7 @@ def run_esn_clustering_with_principal_components_approach_2(options):
 
 
 def run_esn_clustering_with_principal_components_approach_3(options):
-    print 'approach 3'
+    print 'PCA approach 3'
     network = ESN(options.filename, options.neurons, options.alfa, options.sparsity, options.principal_components, options.washout)
     network.load_dataset()
     network.initialize()
@@ -104,8 +109,16 @@ def run_esn_clustering_with_principal_components_approach_3(options):
 
 
 options = parse_options()
-#accuracy = run_esn_regularized_least_squares(options)
-#accuracy = run_esn_clustering_with_principal_components_approach_1(options)
-accuracy = run_esn_clustering_with_principal_components_approach_2(options)
-#accuracy = run_esn_clustering_with_principal_components_approach_3(options)
+accuracy = 0
+if options.method == 'pca1':
+    accuracy = run_esn_clustering_with_principal_components_approach_1(options)
+elif options.method == 'pca2':
+    accuracy = run_esn_clustering_with_principal_components_approach_2(options)
+elif options.method == 'pca3':
+    accuracy = run_esn_clustering_with_principal_components_approach_3(options)
+elif options.method == 'reg':
+    accuracy = run_esn_regularized_least_squares(options)
+elif options.method == 'rls':
+    accuracy = run_esn_regularized_least_squares(options)
+
 print '\033[92mAccuracy: {0} \033[0m'.format(accuracy)

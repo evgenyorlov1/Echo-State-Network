@@ -1,15 +1,17 @@
+# TODO convert to a class
 from __future__ import division
+
 
 from multiprocessing import Pool
 
 from utils.activation_functions import sigmoid_af
 from dimensionality_reduction_utils.PCA import pca_numpy
+from utils.norms import euclidean_norm
 
 import numpy as np
 
-from utils.norms import euclidean_norm
 
-
+# TODO unpack arguments
 def __train(args):
     """
     Function that performs training in parallel by class.
@@ -32,15 +34,18 @@ def __train(args):
     for t in xrange(T):
         reservoir_responses = np.zeros((N, P))                                      # saves responses from reservoir
         for p, image in enumerate(images):
-            response = np.zeros(N)  # initial response from reservoir
+            response = np.zeros(N)                                                  # initial response from reservoir
+            # TODO fix washout. move to image
             for _ in xrange(Washout):
-                response = harvest_state(image[t], response, Vin, Wres)           # reservoir response; N
+                response = harvest_state(image[t], response, Vin, Wres)             # reservoir response; N
             reservoir_responses[:, p] = response
+
         Uk, explained_ratio = pca_numpy(reservoir_responses, R, 0)                  # N x R
         assert Uk.shape == (N, R), 'Uk wrong shape'
         U = Uk.dot(Uk.H)
         assert U.shape == (N, N), 'wrong shape'
-        reflection = I-Uk.dot(Uk.H)
+        reflection = I-Uk.dot(Uk.T)
+        assert (Uk.T == Uk.H).all(), 'Uk.T != Uk.H'
         assert reflection.shape == (N, N), 'reflection wrong'
         X[t] = reflection
         assert X[0].shape == (N, N), 'Wrong X sahpe'
@@ -63,7 +68,6 @@ def train_in_parallel(data, N, R, Lout, Washout, Vin, Wres):
         [data[i], N, R, Washout, Vin, Wres] for i in xrange(Lout)
     ]
     pool = Pool(processes=Lout)
-    # TODO check clusters order. Can be unordered
     clusters = pool.map(__train, args)
     assert clusters.__len__() == Lout, 'Wrong cluster size'
     return clusters
@@ -94,8 +98,8 @@ def classify(test_set, clusters, N, Lout, instances, Washout, Vin, Wres):
             for t in xrange(T):
                 # move response initialization here
                 response = np.zeros(N)
-                for _ in xrange(Washout):
-                    # TODO check response after washout. ?clear response before washout
+                # TODO fix washout. move to image
+                for _ in xrange (Washout):
                     response = harvest_state(image[t], response, Vin, Wres)
                 res += euclidean_norm(response.dot(clusters[l][t]))
             result[l] = res
@@ -138,16 +142,18 @@ def train_straight(train_set, N, R, P, Lout, Washout, Vin, Wres):
     return clusters
 
 
+# TODO move function to the base abstract class
 def harvest_state(u, previous_state, Vin, Wres):
     """
     Get reservoir response for a signal.
-    :param u: input signal.
+    :param u: input signal. Scalar or vector.
     :param previous_state: previous reservoir state.
     :param Vin: matrix of input reservoir weights.
     :param Wres: matrix of reservoir weights.
     :return: reservoir response.
     """
     input_activation = Vin.dot(u)
+    assert input_activation.shape == Vin.shape, 'input activation wrong shape'
     recurrent_activation = previous_state.dot(Wres)                                 # activation from neurons
-    X = sigmoid_af(input_activation + recurrent_activation)
+    X = sigmoid_af(input_activation + recurrent_activation)                         # 1 x N
     return X
