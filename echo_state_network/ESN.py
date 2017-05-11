@@ -35,15 +35,18 @@ class ESN:
         N                   number of neurons in reservoir
         Kin                 number of input neurons
         Lout                number of output neurons
+        alfa                
         sparsity            sparsity/connectivity of RNN; number of non zero weights
         Vin                 matrix with weights for input neurons; KxN
         Wres                matrix with weights for reservoir neurons; NxN
         Uout                matrix with weights for output neurons; NxL
         X                   matrix with reservoir states for classification; TxN
-        B                   list of matrices with normalized 1D points, for each class respectively
+        clusters
+        R                   number of first principal components
+        P                   number of instances to train on
     """
 
-    def __init__(self, file, neurons, alfa, sparsity, R, w):
+    def __init__(self, file, neurons, alfa, sparsity, R, w, instances):
         self.file      =    file
         self.train_set =    None
         self.valid_set =    None
@@ -62,6 +65,7 @@ class ESN:
         self.X         =    None
         self.clusters  =    None
         self.R         =    R
+        self.P         =    instances
 
     # ADD feedback from output
     def __harvest_states(self, data, P, label):
@@ -96,6 +100,7 @@ class ESN:
         for i in xrange(self.Lout):                                                    # get indices per class {class:indices}
             self.C_indices[i] = np.where(self.labels == i)[0]
 
+    # TODO fix P
     def __data_by_class(self, P):
         """
         Returns data separated by class. Only train data without class label. 
@@ -126,7 +131,7 @@ class ESN:
         _, self.labels = self.train_set
         print '{0: <45}'.format('OK')
 
-    # Mila said to re implement. Ask her how
+    # Mila said to re implement. Ask her how; TODO fix Kin
     def initialize(self):
         """
         Initialize ESN: K, L, V, W.
@@ -177,7 +182,7 @@ class ESN:
         print '{0: <45}'.format('OK')
         return accuracy(P, count)
 
-    # TODO REFACTOR B; possible input for U
+    # TODO REFACTOR B; possible input for U; # TODO fix P
     def train_for_clustering_with_principal_components_approach1(self):
         """
         Trains ESN on dataset. input information via output nodes training with PCA.
@@ -191,6 +196,7 @@ class ESN:
         pool = Pool(processes=self.Lout)
         self.clusters = pool.map(train_1, args)
 
+    # TODO fix P
     def classify_for_clustering_with_principal_components_approach1(self):
         """
         Classifies input information via PCA decomposition.
@@ -214,7 +220,7 @@ class ESN:
         count = sum(1 for i, y in enumerate(Y) if y == self.valid_set[1][i])
         return accuracy(P, count)
 
-    # TODO test
+    # TODO fix P
     def train_for_clustering_with_principal_components_approach2(self):
         self.clusters = list()                                                      # stores diff B for each l                                                     # identity matrix
         P = 600                                                                      # number of instances
@@ -223,11 +229,11 @@ class ESN:
 
         self.clusters = train_straight_2(data, self.N, self.R, P, self.Lout, self.Washout, self.Vin, self.Wres)
 
-    # TODO test
+    # TODO fix P
     def train_for_clustering_with_principal_components_approach2_paralel(self):
         self.clusters = list()                                                      # stores diff B for each l
-        P = 30                                                                      # number of instances
-        data = self.__data_by_class(P)
+        print 'number of instances: {0}'.format(self.P)
+        data = self.__data_by_class(self.P)
         self.clusters = train_in_parallel_2(data,
                                             self.N,
                                             self.R,
@@ -237,14 +243,14 @@ class ESN:
                                             self.Wres)
         print 'Finish!'
 
-    # TODO test
+    # TODO fix P
     def classify_for_clustering_with_principal_components_approach2(self):
         instances = 100                                                                     # number of instances
         count = classify_2(self.valid_set, self.clusters, self.N, self.Lout, instances, self.Washout, self.Vin, self.Wres)
         print 'classify 2 count: {0}'.format(count)
         return accuracy(instances, count)
 
-    # TODO
+    # TODO fix P
     def train_for_clustering_with_principal_components_approach3(self):
         self.clusters = list()                                                      # stores (I - Uk*Uk.H) for each k
         T = len(self.train_set[0][0])                                               # pixels in image
@@ -268,6 +274,7 @@ class ESN:
             reflection = I-Uk.dot(Uk.H)                                             # N x N
             self.clusters.append(reflection)
 
+    # TODO fix P
     def train_for_clustering_with_principal_components_approach3_paralel(self):
         self.clusters = list()                                                      # stores diff B for each l
         P = 30                                                                     # number of instances
@@ -281,7 +288,7 @@ class ESN:
         self.clusters = pool.map(train_3, args)
         print 'Finish!'
 
-    # TODO
+    # TODO fix P
     def classify_for_clustering_with_principal_components_approach3(self):
         instances = 300                                                                     # number of instances
         T = len(self.valid_set[0][0])                                               # number of pixels

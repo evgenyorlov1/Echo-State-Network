@@ -32,20 +32,13 @@ def __train(args):
     X = np.zeros((T, N, N))
 
     for t in xrange(T):
-        reservoir_responses = np.zeros((N, P))                                      # saves responses from reservoir
-        for p, image in enumerate(images):
-            response = np.zeros(N)                                                  # initial response from reservoir
-            # TODO fix washout. move to image
-            for _ in xrange(Washout):
-                response = harvest_state(image[t], response, Vin, Wres)             # reservoir response; N
-            reservoir_responses[:, p] = response
-
-        Uk, explained_ratio = pca_numpy(reservoir_responses, R, 0)                  # N x R
+        reservoir_responses = np.zeros((N, P))
+        for _ in xrange(Washout):
+            for p, image in enumerate(images):
+                reservoir_responses[:, p] = harvest_state(image[t], reservoir_responses[:, p - 1], Vin, Wres)
+        Uk, explained_ratio = pca_numpy(reservoir_responses, R, 0)
         assert Uk.shape == (N, R), 'Uk wrong shape'
-        U = Uk.dot(Uk.H)
-        assert U.shape == (N, N), 'wrong shape'
-        reflection = I-Uk.dot(Uk.T)
-        assert (Uk.T == Uk.H).all(), 'Uk.T != Uk.H'
+        reflection = I - Uk.dot(Uk.T)
         assert reflection.shape == (N, N), 'reflection wrong'
         X[t] = reflection
         assert X[0].shape == (N, N), 'Wrong X sahpe'
@@ -64,6 +57,7 @@ def train_in_parallel(data, N, R, Lout, Washout, Vin, Wres):
     :param Wres: reservoir weight matrix.
     :return: list of matrix for multiplication of signal to classify/
     """
+    print 'Training'
     args = [
         [data[i], N, R, Washout, Vin, Wres] for i in xrange(Lout)
     ]
@@ -87,21 +81,23 @@ def classify(test_set, clusters, N, Lout, instances, Washout, Vin, Wres):
     :return: number of correct answers.
     """
     print 'Classify'
-    T = len(test_set[0][0])  # number of pixel
-    Y = np.zeros(instances)  # results of classification
+    T = len(test_set[0][0])
+    Y = np.zeros(instances)
 
     for i, image in enumerate(test_set[0][:instances]):
         result = dict()
-
+        res = 0
         for l in xrange(Lout):
-            res = 0
-            for t in xrange(T):
-                # move response initialization here
-                response = np.zeros(N)
-                # TODO fix washout. move to image
-                for _ in xrange (Washout):
+
+            response = np.zeros(N)
+            for _ in xrange(Washout - 1):
+                for t in xrange(T):
                     response = harvest_state(image[t], response, Vin, Wres)
+
+            for t in xrange(T):
+                response = harvest_state(image[t], response, Vin, Wres)
                 res += euclidean_norm(response.dot(clusters[l][t]))
+
             result[l] = res
         Y[i] = min(result, key=result.get)
     # TODO check count function

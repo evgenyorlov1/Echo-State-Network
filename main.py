@@ -31,9 +31,9 @@ def parse_options():
         type=int
     )
     optparser.add_argument(
-        '-p', '--instances',
+        '-i', '--instances',
         dest='instances',
-        help='number of instances to train on',
+        help='number of instances for training',
         default=None,
         type=int
     )
@@ -70,7 +70,8 @@ def parse_options():
 
 def run_esn_regularized_least_squares(options):
     print 'Regularized least squares approach'
-    network = ESN(options.filename, options.neurons, options.alfa, options.sparsity, options.principal_components, options.washout)
+    network = ESN(options.filename, options.neurons, options.alfa, options.sparsity,
+                  options.principal_components, options.washout)
     network.load_dataset()
     network.initialize()
     network.train_for_regularized_least_squares()
@@ -80,7 +81,8 @@ def run_esn_regularized_least_squares(options):
 
 def run_esn_clustering_with_principal_components_approach_1(options):
     print 'PCA approach 1'
-    network = ESN(options.filename, options.neurons, options.alfa, options.sparsity, options.principal_components, options.washout)
+    network = ESN(options.filename, options.neurons, options.alfa, options.sparsity,
+                  options.principal_components, options.washout)
     network.load_dataset()
     network.initialize()
     network.train_for_clustering_with_principal_components_approach1()
@@ -90,7 +92,9 @@ def run_esn_clustering_with_principal_components_approach_1(options):
 
 def run_esn_clustering_with_principal_components_approach_2(options):
     print 'PCA approach 2'
-    network = ESN(options.filename, options.neurons, options.alfa, options.sparsity, options.principal_components, options.washout)
+    network = ESN(options.filename, options.neurons, options.alfa, options.sparsity,
+                  options.principal_components, options.washout, options.instances)
+    print 'Instances: {0}'.format(options.instances)
     network.load_dataset()
     network.initialize()
     network.train_for_clustering_with_principal_components_approach2_paralel()
@@ -100,7 +104,8 @@ def run_esn_clustering_with_principal_components_approach_2(options):
 
 def run_esn_clustering_with_principal_components_approach_3(options):
     print 'PCA approach 3'
-    network = ESN(options.filename, options.neurons, options.alfa, options.sparsity, options.principal_components, options.washout)
+    network = ESN(options.filename, options.neurons, options.alfa, options.sparsity,
+                  options.principal_components, options.washout)
     network.load_dataset()
     network.initialize()
     network.train_for_clustering_with_principal_components_approach3()#_paralel()
