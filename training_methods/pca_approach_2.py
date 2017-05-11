@@ -138,7 +138,7 @@ def train_straight(train_set, N, R, P, Lout, Washout, Vin, Wres):
     return clusters
 
 
-# TODO move function to the base abstract class
+# TODO move function to the base abstract class; separate harvesting from activation
 def harvest_state(u, previous_state, Vin, Wres):
     """
     Get reservoir response for a signal.
