@@ -5,9 +5,9 @@ from accuracy_measures.accuracy import accuracy
 from utils.norms import euclidean_norm
 from utils.activation_functions import sigmoid_af
 from training_methods.pca_approach_1 import train as train_1
-from training_methods.pca_approach_2 import __train as train_2, \
+from training_methods.pca_approach_2 import harvesting as train_2, \
     classify as classify_2, \
-    train_in_parallel as train_in_parallel_2, \
+    train as train_in_parallel_2, \
     train_straight as train_straight_2
 from training_methods.pca_approach_3 import train as train_3
 from dimensionality_reduction_utils.PCA import pca_numpy
@@ -117,6 +117,7 @@ class ESN:
             data.append(images)
         return data
 
+    # TODO set number of instances here
     def load_dataset(self):
         """
         Loads MNIST.
@@ -232,11 +233,9 @@ class ESN:
     # TODO fix P
     def train_for_clustering_with_principal_components_approach2_paralel(self):
         self.clusters = list()                                                      # stores diff B for each l
-        print 'number of instances: {0}'.format(self.P)
         data = self.__data_by_class(self.P)
         self.clusters = train_in_parallel_2(data,
                                             self.N,
-                                            self.R,
                                             self.Lout,
                                             self.Washout,
                                             self.Vin,
@@ -246,7 +245,7 @@ class ESN:
     # TODO fix P
     def classify_for_clustering_with_principal_components_approach2(self):
         instances = 100                                                                     # number of instances
-        count = classify_2(self.valid_set, self.clusters, self.N, self.Lout, instances, self.Washout, self.Vin, self.Wres)
+        count = classify_2(self.valid_set, self.clusters, self.N, self.Lout, self.R, instances, self.Washout, self.Vin, self.Wres)
         print 'classify 2 count: {0}'.format(count)
         return accuracy(instances, count)
 

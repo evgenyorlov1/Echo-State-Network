@@ -12,40 +12,38 @@ import numpy as np
 
 
 # TODO unpack arguments
-def __train(args):
+def harvesting(args):
     """
     Function that performs training in parallel by class.
     :param args: list contains arguments for function.
+    :param args[0]: images. type numpy array
+    :param args[1]: N. neurons
+    :param args[2]: 
+    :param args[3]:     
+    :param args[4]:     
+    :param args[5]:     
     :return: matrix ~ reflection of class.
     """
     images = args[0]
     N = args[1]
-    R = args[2]
-    Washout = args[3]
-    Vin = args[4]
-    Wres = args[5]
+    Washout = args[2]
+    Vin = args[3]
+    Wres = args[4]
 
     T = len(images[0])                                                              # pixels in image
     P = len(images)                                                                 # number of instances
-    I = np.identity(N)
 
-    X = np.zeros((T, N, N))
+    X = np.zeros((T, N, P))
 
-    for t in xrange(T):
-        reservoir_responses = np.zeros((N, P))
+    for i, image in enumerate(images):
         for _ in xrange(Washout):
-            for p, image in enumerate(images):
-                reservoir_responses[:, p] = harvest_state(image[t], reservoir_responses[:, p - 1], Vin, Wres)
-        Uk, explained_ratio = pca_numpy(reservoir_responses, R, 0)
-        assert Uk.shape == (N, R), 'Uk wrong shape'
-        reflection = I - Uk.dot(Uk.T)
-        assert reflection.shape == (N, N), 'reflection wrong'
-        X[t] = reflection
-        assert X[0].shape == (N, N), 'Wrong X sahpe'
+            for t, pixel in enumerate(image):
+                X[t, :, i] = neuron_activation(pixel, X[t-1, :, i], Vin, Wres)
+
     return X
 
 
-def train_in_parallel(data, N, R, Lout, Washout, Vin, Wres):
+def train(data, N, Lout, Washout, Vin, Wres):
     """
     Parallel training for ESN pca approach 2.
     :param data: training data.
@@ -59,15 +57,14 @@ def train_in_parallel(data, N, R, Lout, Washout, Vin, Wres):
     """
     print 'Training'
     args = [
-        [data[i], N, R, Washout, Vin, Wres] for i in xrange(Lout)
+        [data[i], N, Washout, Vin, Wres] for i in xrange(Lout)
     ]
     pool = Pool(processes=Lout)
-    clusters = pool.map(__train, args)
-    assert clusters.__len__() == Lout, 'Wrong cluster size'
+    clusters = pool.map(harvesting, args)
     return clusters
 
 
-def classify(test_set, clusters, N, Lout, instances, Washout, Vin, Wres):
+def classify(test_set, clusters, N, Lout, R, instances, Washout, Vin, Wres):
     """
     Classify test inputs.
     :param test_set: set for test classification.
@@ -83,21 +80,22 @@ def classify(test_set, clusters, N, Lout, instances, Washout, Vin, Wres):
     print 'Classify'
     T = len(test_set[0][0])
     Y = np.zeros(instances)
+    I = np.identity(N)
 
-    for i, image in enumerate(test_set[0][:instances]):
+    for i, image in enumerate(test_set[0][:instances]):                             # for image in images
+        print 'i: {0}'.format(i)
         result = dict()
-        res = 0
-        for l in xrange(Lout):
-
-            response = np.zeros(N)
-            for _ in xrange(Washout - 1):
-                for t in xrange(T):
-                    response = harvest_state(image[t], response, Vin, Wres)
-
-            for t in xrange(T):
-                response = harvest_state(image[t], response, Vin, Wres)
-                res += euclidean_norm(response.dot(clusters[l][t]))
-
+        images = list()
+        images.append(image)
+        Xtest = harvesting([images, N, Washout, Vin, Wres])
+        print 'i: {0}; Xtest: done'.format(i)
+        for l in xrange(Lout):                                                      # for class in classes
+            print 'i: {0}; l: {1}'.format(i, l)
+            res = 0
+            X = clusters[l]
+            for t, pixel in enumerate(image):
+                Uk, _ = pca_numpy(X[t, :, :], R, 0)
+                res += euclidean_norm((I - Uk.dot(Uk.T)).dot(Xtest[t, :, 0]))
             result[l] = res
         Y[i] = min(result, key=result.get)
     # TODO check count function
@@ -106,40 +104,11 @@ def classify(test_set, clusters, N, Lout, instances, Washout, Vin, Wres):
 
 
 def train_straight(train_set, N, R, P, Lout, Washout, Vin, Wres):
-    clusters = list()
-    T = len(train_set[0][0])  # pixels in image
-    assert T == 784, "WRONG T.length"
-    I = np.identity(N)
-    for k in xrange(Lout):
-        X = np.zeros((T, N, N))
-
-        # TODO delete
-#        Uk_temp = np.zeros((T, N))
-
-        for t in xrange(T):
-            reservoir_responses = np.zeros((N, P))  # saves responses from reservoir
-            for p, image in enumerate(train_set[k]):
-                response = np.zeros(N)  # initial response from reservoir
-                for _ in xrange(Washout):
-                    print image[t]
-                    response = harvest_state(image[t], response, Vin, Wres)  # reservoir response; N
-                reservoir_responses[:, p] = response
-            Uk, explained_ratio = pca_numpy(reservoir_responses, R, 0)  # N x R
-            # TODO delete
-#            Uk_temp[t] = Uk.T
-            reflection = I - Uk.dot(Uk.H)  # N x N
-            assert I.shape == (N, N), 'Wrong reflection shape'
-            X[t] = reflection
-        assert X[0].shape == (N, N), 'Wrong X sahpe'
-        clusters.append(X)         # can be mistake here
-        assert clusters.__len__() == Lout, 'Wrong cluster size'
-        # TODO delete
-        #np.savetxt('Uk{0}'.format(k), Uk_temp)
-    return clusters
+    pass
 
 
-# TODO move function to the base abstract class; separate harvesting from activation
-def harvest_state(u, previous_state, Vin, Wres):
+# TODO move function to the base abstract class; add feedback activation
+def neuron_activation(u, previous_state, Vin, Wres):
     """
     Get reservoir response for a signal.
     :param u: input signal. Scalar or vector.
@@ -151,5 +120,5 @@ def harvest_state(u, previous_state, Vin, Wres):
     input_activation = Vin.dot(u)
     assert input_activation.shape == Vin.shape, 'input activation wrong shape'
     recurrent_activation = previous_state.dot(Wres)                                 # activation from neurons
-    X = sigmoid_af(input_activation + recurrent_activation)                         # 1 x N
+    X = sigmoid_af(input_activation + recurrent_activation)                         # K x N
     return X
