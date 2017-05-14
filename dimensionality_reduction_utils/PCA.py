@@ -25,14 +25,14 @@ def pca_sklearn(X, R):
     :param R: first R principal components
     :return: matrix with first n principal components, explained variance ratio.
     """
-    pca = PCA(n_components=R)
+    pca = PCA(n_components=R, svd_solver='full')
     pca.fit(X)
     X = pca.transform(X)
     explained_variance_ratio = sum(pca.explained_variance_ratio_)                   # explained varience ration after PCA
     return X, explained_variance_ratio
 
 
-def pca_numpy(X, R, rowvar):
+def pca_numpy(X, accuracy, rowvar):
     """
     Principal Component Analysis via numpy.
     :param X: input matrix for dimension reduction
@@ -46,12 +46,17 @@ def pca_numpy(X, R, rowvar):
     e, ev = np.linalg.eigh(C)
     e, ev = sort_eigenvalues(e, ev)
     e = [i / sum(e) for i in e]
-    explained_variance_ratio = sum((e[i]) for i in xrange(R))
+
+    explained_variance_ratio = 0
+    R = 0
+    while explained_variance_ratio < accuracy:
+        explained_variance_ratio += e[R]
+        R += 1
 
     new_feature = ev.T
     XTrans = (new_feature.dot(A.T))
     XTrans = np.matrix(XTrans).T
-    return XTrans[:, :R], explained_variance_ratio
+    return XTrans[:, :R], explained_variance_ratio, R
 
 
 

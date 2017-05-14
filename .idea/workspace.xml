@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="01faf250-d014-4845-a4ec-1ec4ef7a3dc8" name="Default" comment="``">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dimensionality_reduction_utils/PCA.py" afterPath="$PROJECT_DIR$/dimensionality_reduction_utils/PCA.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/echo_state_network/ESN.py" afterPath="$PROJECT_DIR$/echo_state_network/ESN.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/echo_state_network/loaders/mnist_loader.py" afterPath="$PROJECT_DIR$/echo_state_network/loaders/mnist_loader.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/training_methods/pca_approach_2.py" afterPath="$PROJECT_DIR$/training_methods/pca_approach_2.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,129 +18,120 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.3736607">
+    <splitter split-orientation="horizontal" split-proportion="0.5515488">
       <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="ESN.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/echo_state_network/ESN.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="486">
-                  <caret line="117" column="19" lean-forward="true" selection-start-line="117" selection-start-column="19" selection-end-line="117" selection-end-column="19" />
-                  <folding>
-                    <element signature="e#675#1810#1" expanded="false" />
-                    <element signature="e#1892#2518#0" expanded="false" />
-                    <element signature="e#2607#3532#0" expanded="false" />
-                    <element signature="e#2607#2671#1" expanded="false" />
-                    <element signature="e#3022#3368#0" expanded="false" />
-                    <element signature="e#3063#3342#0" expanded="false" />
-                    <element signature="e#3623#3913#0" expanded="false" />
-                    <element signature="e#3950#4191#0" expanded="false" />
-                    <element signature="e#3950#3996#1" expanded="false" />
-                    <element signature="e#4246#4443#1" expanded="false" />
-                    <element signature="e#4967#5646#0" expanded="false" />
-                    <element signature="e#4967#5359#1" expanded="false" />
-                    <element signature="e#5741#6823#0" expanded="false" />
-                    <element signature="e#5741#5792#1" expanded="false" />
-                    <element signature="e#6884#7657#0" expanded="false" />
-                    <element signature="e#6884#6979#1" expanded="false" />
-                    <element signature="e#7721#8539#0" expanded="false" />
-                    <element signature="e#7721#7830#1" expanded="false" />
-                    <element signature="e#8679#9251#0" expanded="false" />
-                    <element signature="e#8679#8779#1" expanded="false" />
-                    <element signature="e#9051#9162#0" expanded="false" />
-                    <element signature="e#9353#10386#0" expanded="false" />
-                    <element signature="e#9353#9428#1" expanded="false" />
-                    <element signature="e#9743#10275#0" expanded="false" />
-                    <element signature="e#9968#10119#0" expanded="false" />
-                    <element signature="e#10019#10119#0" expanded="false" />
-                    <element signature="e#10485#10917#0" expanded="false" />
-                    <element signature="e#12149#13500#0" expanded="false" />
-                    <element signature="e#12658#13494#0" expanded="false" />
-                    <element signature="e#12856#13165#0" expanded="false" />
-                    <element signature="e#12896#13165#0" expanded="false" />
-                    <element signature="e#13601#14089#0" expanded="false" />
-                    <element signature="e#13865#13976#0" expanded="false" />
-                    <element signature="e#14191#15496#0" expanded="false" />
-                    <element signature="e#14599#15325#0" expanded="false" />
-                    <element signature="e#14876#15277#0" expanded="false" />
-                    <element signature="e#15064#15209#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="harvest_reservoir.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/training_methods/harvesting_methods/harvest_reservoir.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="54">
-                  <caret line="8" column="39" lean-forward="false" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
-                  <folding>
-                    <element signature="e#0#31#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="pca_approach_1.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/training_methods/pca_approach_1.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="630">
-                  <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#0#31#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="pca_approach_3.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/training_methods/pca_approach_3.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="31" lean-forward="false" selection-start-line="0" selection-start-column="31" selection-end-line="0" selection-end-column="31" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/main.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="522">
-                  <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
+        <splitter split-orientation="horizontal" split-proportion="0.46560404">
+          <split-first>
+            <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+              <file leaf-file-name="ESN.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/echo_state_network/ESN.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="725">
+                      <caret line="272" column="54" lean-forward="false" selection-start-line="272" selection-start-column="54" selection-end-line="272" selection-end-column="54" />
+                      <folding>
+                        <element signature="e#0#31#0" expanded="true" />
+                        <element signature="e#2645#3570#0" expanded="false" />
+                        <element signature="e#3661#3951#0" expanded="false" />
+                        <element signature="e#6358#7866#0" expanded="false" />
+                        <element signature="e#7927#8700#0" expanded="false" />
+                        <element signature="e#8764#9582#0" expanded="false" />
+                        <element signature="e#9722#10294#0" expanded="false" />
+                        <element signature="e#10396#11429#0" expanded="false" />
+                        <element signature="e#11528#11960#0" expanded="false" />
+                        <element signature="e#13302#14653#0" expanded="false" />
+                        <element signature="e#14754#15242#0" expanded="false" />
+                        <element signature="e#15344#16649#0" expanded="false" />
+                        <marker date="1494786419056" expanded="true" signature="3979:4223" ph="..." />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/main.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="1112">
+                      <caret line="134" column="16" lean-forward="false" selection-start-line="134" selection-start-column="16" selection-end-line="134" selection-end-column="16" />
+                      <folding>
+                        <element signature="e#1818#2196#0" expanded="false" />
+                        <element signature="e#2273#2673#0" expanded="false" />
+                        <element signature="e#3381#3792#0" expanded="false" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+            </leaf>
+          </split-first>
+          <split-second>
+            <leaf>
+              <file leaf-file-name="ESN.py" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/echo_state_network/ESN.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="1463">
+                      <caret line="273" column="0" lean-forward="false" selection-start-line="273" selection-start-column="0" selection-end-line="273" selection-end-column="0" />
+                      <folding>
+                        <element signature="e#0#31#0" expanded="true" />
+                        <element signature="e#2645#3570#0" expanded="false" />
+                        <element signature="e#3661#3951#0" expanded="false" />
+                        <element signature="e#5016#5519#0" expanded="false" />
+                        <element signature="e#5597#6276#0" expanded="false" />
+                        <element signature="e#6358#7866#0" expanded="false" />
+                        <element signature="e#7927#8700#0" expanded="false" />
+                        <element signature="e#8764#9582#0" expanded="false" />
+                        <element signature="e#9722#10294#0" expanded="false" />
+                        <element signature="e#10396#11429#0" expanded="false" />
+                        <element signature="e#11528#11960#0" expanded="false" />
+                        <element signature="e#13302#14653#0" expanded="false" />
+                        <element signature="e#14754#15242#0" expanded="false" />
+                        <element signature="e#15344#16649#0" expanded="false" />
+                        <marker date="1494786419056" expanded="false" signature="3979:4223" ph="..." />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+            </leaf>
+          </split-second>
+        </splitter>
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="pca_approach_2.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/training_methods/pca_approach_2.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="324">
-                  <caret line="31" column="22" lean-forward="false" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="22" />
+                <state relative-caret-position="293">
+                  <caret line="60" column="19" lean-forward="true" selection-start-line="53" selection-start-column="4" selection-end-line="60" selection-end-column="19" />
                   <folding>
-                    <element signature="e#309#476#1" expanded="false" />
-                    <element signature="e#1491#1909#1" expanded="false" />
-                    <element signature="e#2247#3446#0" expanded="false" />
-                    <element signature="e#2247#2690#1" expanded="false" />
-                    <element signature="e#2833#3330#0" expanded="false" />
-                    <element signature="e#2909#3287#0" expanded="false" />
-                    <element signature="e#2990#3085#0" expanded="false" />
-                    <element signature="e#3135#3258#0" expanded="false" />
-                    <element signature="e#3519#4780#0" expanded="false" />
-                    <element signature="e#3681#4760#0" expanded="false" />
-                    <element signature="e#3714#3727#0" expanded="false" />
-                    <element signature="e#3805#4516#0" expanded="false" />
-                    <element signature="e#3947#4235#0" expanded="false" />
-                    <element signature="e#4067#4182#0" expanded="false" />
-                    <element signature="e#4328#4341#0" expanded="false" />
-                    <element signature="e#4699#4712#0" expanded="false" />
-                    <element signature="e#4921#5202#1" expanded="false" />
+                    <element signature="e#26#57#0" expanded="true" />
+                    <element signature="e#362#1247#0" expanded="false" />
+                    <element signature="e#362#701#1" expanded="false" />
+                    <element signature="e#2292#2710#1" expanded="false" />
+                    <element signature="e#3110#4483#0" expanded="false" />
+                    <element signature="e#3110#3553#1" expanded="false" />
+                    <element signature="e#4556#4560#0" expanded="false" />
+                    <element signature="e#4693#4974#1" expanded="false" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="mnist_loader.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/echo_state_network/loaders/mnist_loader.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="144">
+                  <caret line="8" column="51" lean-forward="false" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="PCA.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/dimensionality_reduction_utils/PCA.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="381">
+                  <caret line="26" column="7" lean-forward="true" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -149,8 +144,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Jupyter Notebook" />
-        <option value="Python Script" />
         <option value="Setup Script" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -158,6 +153,9 @@
     <findStrings>
       <find>labels</find>
       <find>self.X</find>
+      <find>__c_indices</find>
+      <find>pca_numpy</find>
+      <find>__data_by_class</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -171,7 +169,6 @@
         <option value="$PROJECT_DIR$/utils/print_block.py" />
         <option value="$PROJECT_DIR$/utils/data_loader.py" />
         <option value="$PROJECT_DIR$/utils/plot_results.py" />
-        <option value="$PROJECT_DIR$/echo_state_network/loaders/mnist_loader.py" />
         <option value="$PROJECT_DIR$/echo_state_network/loaders/ecg_loader.py" />
         <option value="$PROJECT_DIR$/dimensionality_reduction_utils/TICA.py" />
         <option value="$PROJECT_DIR$/dimensionality_reduction_utils/MDS.py" />
@@ -183,13 +180,15 @@
         <option value="$PROJECT_DIR$/training_methods/utils/linear_regression.py" />
         <option value="$PROJECT_DIR$/training_methods/harvesting_methods/harvest.py" />
         <option value="$PROJECT_DIR$/training_methods/harvesting_methods/harvest_reservoir.py" />
-        <option value="$PROJECT_DIR$/dimensionality_reduction_utils/PCA.py" />
         <option value="$PROJECT_DIR$/accuracy_measures/accuracy.py" />
-        <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/echo_state_network/ESN.py" />
         <option value="$PROJECT_DIR$/sds.ipynb" />
         <option value="$PROJECT_DIR$/__init__.py" />
+        <option value="$PROJECT_DIR$/utils/plot_principal_components.py" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/dimensionality_reduction_utils/PCA.py" />
+        <option value="$PROJECT_DIR$/echo_state_network/ESN.py" />
         <option value="$PROJECT_DIR$/training_methods/pca_approach_2.py" />
+        <option value="$PROJECT_DIR$/echo_state_network/loaders/mnist_loader.py" />
       </list>
     </option>
   </component>
@@ -332,7 +331,57 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="echo_state_network" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="loaders" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Echo-State-Network" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Echo-State-Network" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="dimensionality_reduction_utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Echo-State-Network" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Echo-State-Network" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="datasets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Echo-State-Network" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Echo-State-Network" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="datasets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MNIST" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -352,8 +401,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -378,37 +427,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python tests.Unittests in PCAtest.py">
-    <configuration default="false" name="Unittests for ESNtest.ESNtest.test__ESN__c_indices" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/echo_state_network/tests" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Echo-State-Network" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;ESNtest.ESNtest.test__ESN__c_indices&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Unittests for ESNtest.ESNtest.test__ESN__c_indices (1)" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/echo_state_network/tests" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Echo-State-Network" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;ESNtest.ESNtest.test__ESN__c_indices&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.mnist_loader">
     <configuration default="false" name="Unittests for ESNtest.ESNtest" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -452,6 +471,42 @@
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;$PROJECT_DIR$/dimensionality_reduction_utils/tests/PCAtest.py&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method />
+    </configuration>
+    <configuration default="false" name="plot_principal_components" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utils" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Echo-State-Network" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils/plot_principal_components.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="mnist_loader" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/echo_state_network/loaders" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Echo-State-Network" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/echo_state_network/loaders/mnist_loader.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -519,19 +574,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests for ESNtest.ESNtest.test__ESN__c_indices" />
-      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests for ESNtest.ESNtest.test__ESN__c_indices (1)" />
-      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests for ESNtest.ESNtest" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests for ESNtest.ESNtest.test__ESN__c_indices (2)" />
-      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in PCAtest.py" />
+      <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests for ESNtest.ESNtest" />
+      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests for ESNtest.ESNtest.test__ESN__c_indices (2)" />
+      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in PCAtest.py" />
+      <item index="3" class="java.lang.String" itemvalue="Python.plot_principal_components" />
+      <item index="4" class="java.lang.String" itemvalue="Python.mnist_loader" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in PCAtest.py" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests for ESNtest.ESNtest.test__ESN__c_indices (2)" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests for ESNtest.ESNtest" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests for ESNtest.ESNtest.test__ESN__c_indices (1)" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests for ESNtest.ESNtest.test__ESN__c_indices" />
+        <item index="0" class="java.lang.String" itemvalue="Python.mnist_loader" />
+        <item index="1" class="java.lang.String" itemvalue="Python.plot_principal_components" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in PCAtest.py" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests for ESNtest.ESNtest.test__ESN__c_indices (2)" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests for ESNtest.ESNtest" />
       </list>
     </recent_temporary>
   </component>
@@ -608,14 +663,15 @@
     <frame x="64" y="-11" width="2497" height="1452" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08574928" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11678236" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32852808" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4279211" sideWeight="0.50142914" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34228188" sideWeight="0.5030625" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32776934" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.52503794" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32852808" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36115327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2693475" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1392405" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3801214" sideWeight="0.49857086" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36115327" sideWeight="0.4969375" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32993057" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -624,9 +680,34 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24989791" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32852808" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -638,26 +719,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="12" />
+      <option name="time" value="37" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="16" column="39" lean-forward="true" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dimensionality_reduction_utils/tests/PCAtest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="21" column="58" lean-forward="false" selection-start-line="21" selection-start-column="58" selection-end-line="21" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/echo_state_network/tests/ESNtest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -670,23 +736,14 @@
         <state relative-caret-position="2016">
           <caret line="121" column="11" lean-forward="false" selection-start-line="121" selection-start-column="11" selection-end-line="121" selection-end-column="11" />
           <folding>
-            <element signature="e#309#476#1" expanded="false" />
-            <element signature="e#1491#1909#1" expanded="false" />
-            <element signature="e#2247#3446#0" expanded="false" />
-            <element signature="e#2247#2690#1" expanded="false" />
-            <element signature="e#2833#3330#0" expanded="false" />
-            <element signature="e#2909#3287#0" expanded="false" />
-            <element signature="e#2990#3085#0" expanded="false" />
-            <element signature="e#3135#3258#0" expanded="false" />
-            <element signature="e#3519#4780#0" expanded="false" />
-            <element signature="e#3681#4760#0" expanded="false" />
-            <element signature="e#3714#3727#0" expanded="false" />
-            <element signature="e#3805#4516#0" expanded="false" />
-            <element signature="e#3947#4235#0" expanded="false" />
-            <element signature="e#4067#4182#0" expanded="false" />
-            <element signature="e#4328#4341#0" expanded="false" />
-            <element signature="e#4699#4712#0" expanded="false" />
-            <element signature="e#4921#5202#1" expanded="false" />
+            <element signature="e#26#57#0" expanded="true" />
+            <element signature="e#362#1247#0" expanded="false" />
+            <element signature="e#362#701#1" expanded="false" />
+            <element signature="e#2292#2710#1" expanded="false" />
+            <element signature="e#3110#4483#0" expanded="false" />
+            <element signature="e#3110#3553#1" expanded="false" />
+            <element signature="e#4556#4560#0" expanded="false" />
+            <element signature="e#4693#4974#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -724,43 +781,19 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#675#1810#1" expanded="false" />
-            <element signature="e#1892#2518#0" expanded="false" />
-            <element signature="e#2607#3532#0" expanded="false" />
-            <element signature="e#2607#2671#1" expanded="false" />
-            <element signature="e#3022#3368#0" expanded="false" />
-            <element signature="e#3063#3342#0" expanded="false" />
-            <element signature="e#3623#3913#0" expanded="false" />
-            <element signature="e#3950#4191#0" expanded="false" />
-            <element signature="e#3950#3996#1" expanded="false" />
-            <element signature="e#4246#4443#1" expanded="false" />
-            <element signature="e#4967#5646#0" expanded="false" />
-            <element signature="e#4967#5359#1" expanded="false" />
-            <element signature="e#5741#6823#0" expanded="false" />
-            <element signature="e#5741#5792#1" expanded="false" />
-            <element signature="e#6884#7657#0" expanded="false" />
-            <element signature="e#6884#6979#1" expanded="false" />
-            <element signature="e#7721#8539#0" expanded="false" />
-            <element signature="e#7721#7830#1" expanded="false" />
-            <element signature="e#8679#9251#0" expanded="false" />
-            <element signature="e#8679#8779#1" expanded="false" />
-            <element signature="e#9051#9162#0" expanded="false" />
-            <element signature="e#9353#10386#0" expanded="false" />
-            <element signature="e#9353#9428#1" expanded="false" />
-            <element signature="e#9743#10275#0" expanded="false" />
-            <element signature="e#9968#10119#0" expanded="false" />
-            <element signature="e#10019#10119#0" expanded="false" />
-            <element signature="e#10485#10917#0" expanded="false" />
-            <element signature="e#12149#13500#0" expanded="false" />
-            <element signature="e#12658#13494#0" expanded="false" />
-            <element signature="e#12856#13165#0" expanded="false" />
-            <element signature="e#12896#13165#0" expanded="false" />
-            <element signature="e#13601#14089#0" expanded="false" />
-            <element signature="e#13865#13976#0" expanded="false" />
-            <element signature="e#14191#15496#0" expanded="false" />
-            <element signature="e#14599#15325#0" expanded="false" />
-            <element signature="e#14876#15277#0" expanded="false" />
-            <element signature="e#15064#15209#0" expanded="false" />
+            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#2645#3570#0" expanded="false" />
+            <element signature="e#3661#3951#0" expanded="false" />
+            <element signature="e#6358#7866#0" expanded="false" />
+            <element signature="e#7927#8700#0" expanded="false" />
+            <element signature="e#8764#9582#0" expanded="false" />
+            <element signature="e#9722#10294#0" expanded="false" />
+            <element signature="e#10396#11429#0" expanded="false" />
+            <element signature="e#11528#11960#0" expanded="false" />
+            <element signature="e#13302#14653#0" expanded="false" />
+            <element signature="e#14754#15242#0" expanded="false" />
+            <element signature="e#15344#16649#0" expanded="false" />
+            <marker date="1494786419056" expanded="true" signature="3979:4223" ph="..." />
           </folding>
         </state>
       </provider>
@@ -777,7 +810,7 @@
         <state relative-caret-position="72">
           <caret line="4" column="47" lean-forward="false" selection-start-line="4" selection-start-column="47" selection-end-line="4" selection-end-column="47" />
           <folding>
-            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#0#31#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -787,43 +820,19 @@
         <state relative-caret-position="1134">
           <caret line="168" column="0" lean-forward="false" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
           <folding>
-            <element signature="e#675#1810#1" expanded="false" />
-            <element signature="e#1892#2518#0" expanded="false" />
-            <element signature="e#2607#3532#0" expanded="false" />
-            <element signature="e#2607#2671#1" expanded="false" />
-            <element signature="e#3022#3368#0" expanded="false" />
-            <element signature="e#3063#3342#0" expanded="false" />
-            <element signature="e#3623#3913#0" expanded="false" />
-            <element signature="e#3950#4191#0" expanded="false" />
-            <element signature="e#3950#3996#1" expanded="false" />
-            <element signature="e#4246#4443#1" expanded="false" />
-            <element signature="e#4967#5646#0" expanded="false" />
-            <element signature="e#4967#5359#1" expanded="false" />
-            <element signature="e#5741#6823#0" expanded="false" />
-            <element signature="e#5741#5792#1" expanded="false" />
-            <element signature="e#6884#7657#0" expanded="false" />
-            <element signature="e#6884#6979#1" expanded="false" />
-            <element signature="e#7721#8539#0" expanded="false" />
-            <element signature="e#7721#7830#1" expanded="false" />
-            <element signature="e#8679#9251#0" expanded="false" />
-            <element signature="e#8679#8779#1" expanded="false" />
-            <element signature="e#9051#9162#0" expanded="false" />
-            <element signature="e#9353#10386#0" expanded="false" />
-            <element signature="e#9353#9428#1" expanded="false" />
-            <element signature="e#9743#10275#0" expanded="false" />
-            <element signature="e#9968#10119#0" expanded="false" />
-            <element signature="e#10019#10119#0" expanded="false" />
-            <element signature="e#10485#10917#0" expanded="false" />
-            <element signature="e#12149#13500#0" expanded="false" />
-            <element signature="e#12658#13494#0" expanded="false" />
-            <element signature="e#12856#13165#0" expanded="false" />
-            <element signature="e#12896#13165#0" expanded="false" />
-            <element signature="e#13601#14089#0" expanded="false" />
-            <element signature="e#13865#13976#0" expanded="false" />
-            <element signature="e#14191#15496#0" expanded="false" />
-            <element signature="e#14599#15325#0" expanded="false" />
-            <element signature="e#14876#15277#0" expanded="false" />
-            <element signature="e#15064#15209#0" expanded="false" />
+            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#2645#3570#0" expanded="false" />
+            <element signature="e#3661#3951#0" expanded="false" />
+            <element signature="e#6358#7866#0" expanded="false" />
+            <element signature="e#7927#8700#0" expanded="false" />
+            <element signature="e#8764#9582#0" expanded="false" />
+            <element signature="e#9722#10294#0" expanded="false" />
+            <element signature="e#10396#11429#0" expanded="false" />
+            <element signature="e#11528#11960#0" expanded="false" />
+            <element signature="e#13302#14653#0" expanded="false" />
+            <element signature="e#14754#15242#0" expanded="false" />
+            <element signature="e#15344#16649#0" expanded="false" />
+            <marker date="1494786419056" expanded="true" signature="3979:4223" ph="..." />
           </folding>
         </state>
       </provider>
@@ -840,23 +849,14 @@
         <state relative-caret-position="378">
           <caret line="30" column="23" lean-forward="true" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
           <folding>
-            <element signature="e#309#476#1" expanded="false" />
-            <element signature="e#1491#1909#1" expanded="false" />
-            <element signature="e#2247#3446#0" expanded="false" />
-            <element signature="e#2247#2690#1" expanded="false" />
-            <element signature="e#2833#3330#0" expanded="false" />
-            <element signature="e#2909#3287#0" expanded="false" />
-            <element signature="e#2990#3085#0" expanded="false" />
-            <element signature="e#3135#3258#0" expanded="false" />
-            <element signature="e#3519#4780#0" expanded="false" />
-            <element signature="e#3681#4760#0" expanded="false" />
-            <element signature="e#3714#3727#0" expanded="false" />
-            <element signature="e#3805#4516#0" expanded="false" />
-            <element signature="e#3947#4235#0" expanded="false" />
-            <element signature="e#4067#4182#0" expanded="false" />
-            <element signature="e#4328#4341#0" expanded="false" />
-            <element signature="e#4699#4712#0" expanded="false" />
-            <element signature="e#4921#5202#1" expanded="false" />
+            <element signature="e#26#57#0" expanded="true" />
+            <element signature="e#362#1247#0" expanded="false" />
+            <element signature="e#362#701#1" expanded="false" />
+            <element signature="e#2292#2710#1" expanded="false" />
+            <element signature="e#3110#4483#0" expanded="false" />
+            <element signature="e#3110#3553#1" expanded="false" />
+            <element signature="e#4556#4560#0" expanded="false" />
+            <element signature="e#4693#4974#1" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -873,7 +873,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#1818#2196#0" expanded="false" />
+            <element signature="e#2273#2673#0" expanded="false" />
+            <element signature="e#3381#3792#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -924,13 +928,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="33" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/echo_state_network/loaders/mnist_loader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="19" lean-forward="false" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -1004,13 +1001,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dimensionality_reduction_utils/PCA.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/norms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -1029,34 +1019,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="15" column="18" lean-forward="false" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/training_methods/pca_approach_1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/training_methods/pca_approach_3.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="31" lean-forward="false" selection-start-line="0" selection-start-column="31" selection-end-line="0" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/training_methods/harvesting_methods/harvest_reservoir.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="8" column="39" lean-forward="false" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1084,82 +1046,115 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/setup.py" />
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$PROJECT_DIR$/training_methods/pca_approach_3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="31" lean-forward="false" selection-start-line="0" selection-start-column="31" selection-end-line="0" selection-end-column="31" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/training_methods/harvesting_methods/harvest_reservoir.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="39" lean-forward="false" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#31#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/training_methods/pca_approach_1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="756">
+          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#31#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/plot_principal_components.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/echo_state_network/ESN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="117" column="19" lean-forward="true" selection-start-line="117" selection-start-column="19" selection-end-line="117" selection-end-column="19" />
+        <state relative-caret-position="725">
+          <caret line="272" column="54" lean-forward="false" selection-start-line="272" selection-start-column="54" selection-end-line="272" selection-end-column="54" />
           <folding>
-            <element signature="e#675#1810#1" expanded="false" />
-            <element signature="e#1892#2518#0" expanded="false" />
-            <element signature="e#2607#3532#0" expanded="false" />
-            <element signature="e#2607#2671#1" expanded="false" />
-            <element signature="e#3022#3368#0" expanded="false" />
-            <element signature="e#3063#3342#0" expanded="false" />
-            <element signature="e#3623#3913#0" expanded="false" />
-            <element signature="e#3950#4191#0" expanded="false" />
-            <element signature="e#3950#3996#1" expanded="false" />
-            <element signature="e#4246#4443#1" expanded="false" />
-            <element signature="e#4967#5646#0" expanded="false" />
-            <element signature="e#4967#5359#1" expanded="false" />
-            <element signature="e#5741#6823#0" expanded="false" />
-            <element signature="e#5741#5792#1" expanded="false" />
-            <element signature="e#6884#7657#0" expanded="false" />
-            <element signature="e#6884#6979#1" expanded="false" />
-            <element signature="e#7721#8539#0" expanded="false" />
-            <element signature="e#7721#7830#1" expanded="false" />
-            <element signature="e#8679#9251#0" expanded="false" />
-            <element signature="e#8679#8779#1" expanded="false" />
-            <element signature="e#9051#9162#0" expanded="false" />
-            <element signature="e#9353#10386#0" expanded="false" />
-            <element signature="e#9353#9428#1" expanded="false" />
-            <element signature="e#9743#10275#0" expanded="false" />
-            <element signature="e#9968#10119#0" expanded="false" />
-            <element signature="e#10019#10119#0" expanded="false" />
-            <element signature="e#10485#10917#0" expanded="false" />
-            <element signature="e#12149#13500#0" expanded="false" />
-            <element signature="e#12658#13494#0" expanded="false" />
-            <element signature="e#12856#13165#0" expanded="false" />
-            <element signature="e#12896#13165#0" expanded="false" />
-            <element signature="e#13601#14089#0" expanded="false" />
-            <element signature="e#13865#13976#0" expanded="false" />
-            <element signature="e#14191#15496#0" expanded="false" />
-            <element signature="e#14599#15325#0" expanded="false" />
-            <element signature="e#14876#15277#0" expanded="false" />
-            <element signature="e#15064#15209#0" expanded="false" />
+            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#2645#3570#0" expanded="false" />
+            <element signature="e#3661#3951#0" expanded="false" />
+            <element signature="e#6358#7866#0" expanded="false" />
+            <element signature="e#7927#8700#0" expanded="false" />
+            <element signature="e#8764#9582#0" expanded="false" />
+            <element signature="e#9722#10294#0" expanded="false" />
+            <element signature="e#10396#11429#0" expanded="false" />
+            <element signature="e#11528#11960#0" expanded="false" />
+            <element signature="e#13302#14653#0" expanded="false" />
+            <element signature="e#14754#15242#0" expanded="false" />
+            <element signature="e#15344#16649#0" expanded="false" />
+            <marker date="1494786419056" expanded="true" signature="3979:4223" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dimensionality_reduction_utils/PCA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="26" column="7" lean-forward="true" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dump_1">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4698">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/echo_state_network/loaders/mnist_loader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="51" lean-forward="false" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/training_methods/pca_approach_2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="31" column="22" lean-forward="false" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="22" />
+        <state relative-caret-position="293">
+          <caret line="60" column="19" lean-forward="true" selection-start-line="53" selection-start-column="4" selection-end-line="60" selection-end-column="19" />
           <folding>
-            <element signature="e#309#476#1" expanded="false" />
-            <element signature="e#1491#1909#1" expanded="false" />
-            <element signature="e#2247#3446#0" expanded="false" />
-            <element signature="e#2247#2690#1" expanded="false" />
-            <element signature="e#2833#3330#0" expanded="false" />
-            <element signature="e#2909#3287#0" expanded="false" />
-            <element signature="e#2990#3085#0" expanded="false" />
-            <element signature="e#3135#3258#0" expanded="false" />
-            <element signature="e#3519#4780#0" expanded="false" />
-            <element signature="e#3681#4760#0" expanded="false" />
-            <element signature="e#3714#3727#0" expanded="false" />
-            <element signature="e#3805#4516#0" expanded="false" />
-            <element signature="e#3947#4235#0" expanded="false" />
-            <element signature="e#4067#4182#0" expanded="false" />
-            <element signature="e#4328#4341#0" expanded="false" />
-            <element signature="e#4699#4712#0" expanded="false" />
-            <element signature="e#4921#5202#1" expanded="false" />
+            <element signature="e#26#57#0" expanded="true" />
+            <element signature="e#362#1247#0" expanded="false" />
+            <element signature="e#362#701#1" expanded="false" />
+            <element signature="e#2292#2710#1" expanded="false" />
+            <element signature="e#3110#4483#0" expanded="false" />
+            <element signature="e#3110#3553#1" expanded="false" />
+            <element signature="e#4556#4560#0" expanded="false" />
+            <element signature="e#4693#4974#1" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1112">
+          <caret line="134" column="16" lean-forward="false" selection-start-line="134" selection-start-column="16" selection-end-line="134" selection-end-column="16" />
+          <folding>
+            <element signature="e#1818#2196#0" expanded="false" />
+            <element signature="e#2273#2673#0" expanded="false" />
+            <element signature="e#3381#3792#0" expanded="false" />
           </folding>
         </state>
       </provider>

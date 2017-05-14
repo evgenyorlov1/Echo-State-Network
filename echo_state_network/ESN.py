@@ -46,7 +46,7 @@ class ESN:
         P                   number of instances to train on
     """
 
-    def __init__(self, file, neurons, alfa, sparsity, R, w, instances):
+    def __init__(self, file, neurons, alfa, sparsity, R, accuracy, w, instances):
         self.file      =    file
         self.train_set =    None
         self.valid_set =    None
@@ -65,6 +65,7 @@ class ESN:
         self.X         =    None
         self.clusters  =    None
         self.R         =    R
+        self.accuracy  =    accuracy
         self.P         =    instances
 
     # ADD feedback from output
@@ -100,8 +101,7 @@ class ESN:
         for i in xrange(self.Lout):                                                    # get indices per class {class:indices}
             self.C_indices[i] = np.where(self.labels == i)[0]
 
-    # TODO fix P
-    def __data_by_class(self, P):
+    def __data_by_class(self):
         """
         Returns data separated by class. Only train data without class label. 
         :param P: number of train instances to select
@@ -110,10 +110,27 @@ class ESN:
         data = list()                                                               # stores train inputs for each class
         T = len(self.train_set[0][0])                                               # pixels in image
         for i in xrange(self.Lout):
-            indices = self.C_indices[i][:P]
-            images = np.zeros((P, T))
+            indices = self.C_indices[i][:self.P]
+            images = np.zeros((self.P, T))
             for k, j in enumerate(indices):
                 images[k] = self.train_set[0][j]
+            data.append(images)
+        return data
+
+    def __get_data_by_class(self, train_set, P):
+        _, labels = train_set
+
+        C_indices = dict()
+        for i in xrange(self.Lout):
+            C_indices[i] = np.where(labels == i)[0]
+
+        data = list()  # stores train inputs for each class
+        T = len(train_set[0][0])  # pixels in image
+        for i in xrange(self.Lout):
+            indices = C_indices[i][:P]
+            images = np.zeros((P, T))
+            for k, j in enumerate(indices):
+                images[k] = train_set[0][j]
             data.append(images)
         return data
 
@@ -132,7 +149,7 @@ class ESN:
         _, self.labels = self.train_set
         print '{0: <45}'.format('OK')
 
-    # Mila said to re implement. Ask her how; TODO fix Kin
+    # Mila said to re implement. Ask her how;
     def initialize(self):
         """
         Initialize ESN: K, L, V, W.
@@ -140,15 +157,27 @@ class ESN:
         print '{0: <45}'.format('2/4. Initializing Echo State Network...'),
         sys.stdout.flush()
         # TODO fix seeds for testing
-        np.random.seed(None)
+        #np.random.seed(None)
         self.Kin = 1#len(self.train_set[0][1])                                          # define number of input neurons;  1 # just for PCA#
         self.Lout = max(self.train_set[1]) + 1                                         # define number of output neurons
-        self.Vin = np.random.uniform(-self.alfa, self.alfa, (self.Kin, self.N))       # init weights for input neurons
+        #self.Vin = np.random.uniform(-self.alfa, self.alfa, (self.Kin, self.N))       # init weights for input neurons
+        self.Vin = np.zeros((self.Kin, self.N)) + self.alfa
         self.Wres = np.random.uniform(-self.alfa, self.alfa, (self.N, self.N))      # init weights for reservoir neurons
         self.Uout = np.random.uniform(-self.alfa, self.alfa, (self.N, self.Lout))      # init weights for output neurons. Need for pca clustering
         # Sparsity
         mask = (np.random.uniform(size=(self.N, self.N)) < (1-self.sparsity))       # sparsity mask
         self.Wres[mask] = 0.0
+        e, _ = np.linalg.eigh(self.Wres)
+        spectr_radius = max(abs(e))
+        self.Wres = self.Wres / spectr_radius
+
+        new_spectral_radius = 0.999*(1-self.alfa)
+        self.Wres = self.Wres * new_spectral_radius
+
+        e, _ = np.linalg.eigh(self.Wres)
+        spectr_radius = max(abs(e))
+        print 'Spectral radius: {0}'.format(spectr_radius)
+
         self.__c_indices()
         print '{0: <45}'.format('OK')
 
@@ -233,21 +262,29 @@ class ESN:
     # TODO fix P
     def train_for_clustering_with_principal_components_approach2_paralel(self):
         self.clusters = list()                                                      # stores diff B for each l
-        data = self.__data_by_class(self.P)
+        data = self.__data_by_class()
+
         self.clusters = train_in_parallel_2(data,
                                             self.N,
+                                            self.accuracy,
                                             self.Lout,
                                             self.Washout,
                                             self.Vin,
                                             self.Wres)
+
+        print 'Clusterns: {0}'.format(len(self.clusters))
+        print 'Clusterns matrix shape: {0}'.format(len(self.clusters[0]))
         print 'Finish!'
 
     # TODO fix P
-    def classify_for_clustering_with_principal_components_approach2(self):
-        instances = 100                                                                     # number of instances
-        count = classify_2(self.valid_set, self.clusters, self.N, self.Lout, self.R, instances, self.Washout, self.Vin, self.Wres)
+    def classify_for_clustering_with_principal_components_approach2(self):                                                                            # number of instances
+
+        data = self.__get_data_by_class(self.valid_set, 100)
+
+
+        count = classify_2(data, self.clusters, self.N, self.Lout, self.P, self.Washout, self.Vin, self.Wres)
         print 'classify 2 count: {0}'.format(count)
-        return accuracy(instances, count)
+        return accuracy(self.P, count)
 
     # TODO fix P
     def train_for_clustering_with_principal_components_approach3(self):

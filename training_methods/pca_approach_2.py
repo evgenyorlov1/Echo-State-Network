@@ -3,9 +3,10 @@ from __future__ import division
 
 
 from multiprocessing import Pool
+from joblib import Parallel, delayed
 
 from utils.activation_functions import sigmoid_af
-from dimensionality_reduction_utils.PCA import pca_numpy
+from dimensionality_reduction_utils.PCA import pca_numpy, pca_sklearn
 from utils.norms import euclidean_norm
 
 import numpy as np
@@ -39,11 +40,44 @@ def harvesting(args):
         for _ in xrange(Washout):
             for t, pixel in enumerate(image):
                 X[t, :, i] = neuron_activation(pixel, X[t-1, :, i], Vin, Wres)
-
     return X
 
 
-def train(data, N, Lout, Washout, Vin, Wres):
+def training(args):
+    images = args[0]
+    N = args[1]
+    accuracy = args[2]
+    Washout = args[3]
+    Vin = args[4]
+    Wres = args[5]
+
+    T = len(images[0])  # pixels in image
+    P = len(images)  # number of instances
+    I = np.identity(N)
+
+    X = np.zeros((T, N, P))
+    Result = np.zeros((T, N, N))
+
+    for i, image in enumerate(images):
+        for _ in xrange(Washout):
+            for t, pixel in enumerate(image):
+                X[t, :, i] = neuron_activation(pixel, X[t - 1, :, i], Vin, Wres)
+
+    # TODO delete
+    x = np.zeros(T)
+    for t in xrange(T):
+        #print 'X[t].shape: {0}'.format(X[t].shape)
+        Uk, expl, R = pca_numpy(X[t], accuracy, 0)  # TODO check 0/1
+        temp, ex = pca_sklearn(X[t], 0.9)
+        if temp.shape[1] > 1: print 'temp.shape: {0}; ex: {1}'.format(temp.shape, ex)
+        if R > 1: print 'R: {0}; expl: {1}'.format(R, expl)
+        # TODO delete
+        x[t] = R
+        Result[t] = I - Uk.dot(Uk.T)
+    return Result, x
+
+
+def train(data, N, accuracy, Lout, Washout, Vin, Wres):
     """
     Parallel training for ESN pca approach 2.
     :param data: training data.
@@ -57,14 +91,17 @@ def train(data, N, Lout, Washout, Vin, Wres):
     """
     print 'Training'
     args = [
-        [data[i], N, Washout, Vin, Wres] for i in xrange(Lout)
+        [data[i], N, accuracy, Washout, Vin, Wres] for i in xrange(Lout)
     ]
     pool = Pool(processes=Lout)
-    clusters = pool.map(harvesting, args)
+    clusters = pool.map(training, args)
+    # TODO delete
+    for i, cluster in enumerate(clusters):
+        np.savetxt('dump_{0}'.format(i), cluster[1])
     return clusters
 
 
-def classify(test_set, clusters, N, Lout, R, instances, Washout, Vin, Wres):
+def classify(test_set, clusters, N, Lout, instances, Washout, Vin, Wres):
     """
     Classify test inputs.
     :param test_set: set for test classification.
@@ -78,28 +115,26 @@ def classify(test_set, clusters, N, Lout, R, instances, Washout, Vin, Wres):
     :return: number of correct answers.
     """
     print 'Classify'
-    T = len(test_set[0][0])
     Y = np.zeros(instances)
-    I = np.identity(N)
+    count = 0
+    for k, images in enumerate(test_set):
+        for i, image in enumerate(images):                             # for image in images
+            print 'i: {0}'.format(i)
+            result = dict()
+            _images = list()
+            _images.append(image)
+            Xtest = harvesting([_images, N, Washout, Vin, Wres])
+            for l in xrange(Lout):                                                      # for class in classes
+                res = 0
+                X = clusters[l]
+                for t, pixel in enumerate(image):
+                    print 'X[t].shape: {0}; Xtest[t, :, 0].shape: {1}'.format(X[t].shape, Xtest[t, :, 0].shape)
+                    res += euclidean_norm(X[t].dot(Xtest[t, :, 0]))
+                result[l] = res
+            Y[i] = min(result, key=result.get)
 
-    for i, image in enumerate(test_set[0][:instances]):                             # for image in images
-        print 'i: {0}'.format(i)
-        result = dict()
-        images = list()
-        images.append(image)
-        Xtest = harvesting([images, N, Washout, Vin, Wres])
-        print 'i: {0}; Xtest: done'.format(i)
-        for l in xrange(Lout):                                                      # for class in classes
-            print 'i: {0}; l: {1}'.format(i, l)
-            res = 0
-            X = clusters[l]
-            for t, pixel in enumerate(image):
-                Uk, _ = pca_numpy(X[t, :, :], R, 0)
-                res += euclidean_norm((I - Uk.dot(Uk.T)).dot(Xtest[t, :, 0]))
-            result[l] = res
-        Y[i] = min(result, key=result.get)
-    # TODO check count function
-    count = sum(1 for i, y in enumerate(Y) if y == test_set[1][i])
+
+        count = sum(1 for y in Y if y == k)
     return count
 
 

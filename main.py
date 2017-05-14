@@ -27,7 +27,7 @@ def parse_options():
         '-n', '--neurons',
         dest='neurons',
         help='number of neurons in Reservoir',
-        default=100,
+        default=50,
         type=int
     )
     optparser.add_argument(
@@ -41,7 +41,7 @@ def parse_options():
         '-alfa', '--alfa',
         dest='alfa',
         help='reservoir matrix scaling parametr',
-        default=0.5,
+        default=0.1,
         type=float
     )
     optparser.add_argument(
@@ -49,6 +49,13 @@ def parse_options():
         dest='principal_components',
         help='first R principal components',
         default=None,
+        type=int
+    )
+    optparser.add_argument(
+        '-a', '--pca_accuracy',
+        dest='accuracy',
+        help='sets PCA accuracy',
+        default=0.90,
         type=int
     )
     optparser.add_argument(
@@ -92,13 +99,18 @@ def run_esn_clustering_with_principal_components_approach_1(options):
 
 def run_esn_clustering_with_principal_components_approach_2(options):
     print 'PCA approach 2'
-    network = ESN(options.filename, options.neurons, options.alfa, options.sparsity,
-                  options.principal_components, options.washout, options.instances)
-    print 'Instances: {0}'.format(options.instances)
+    network = ESN(options.filename,
+                  options.neurons,
+                  options.alfa,
+                  options.sparsity,
+                  options.principal_components,
+                  options.accuracy,
+                  options.washout,
+                  options.instances)
     network.load_dataset()
     network.initialize()
     network.train_for_clustering_with_principal_components_approach2_paralel()
-    accuracy = network.classify_for_clustering_with_principal_components_approach2()
+    #accuracy = network.classify_for_clustering_with_principal_components_approach2()
     return accuracy
 
 
